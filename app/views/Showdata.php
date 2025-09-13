@@ -19,7 +19,8 @@
                 <th>Role</th>
                 <th>Action</th>
             </tr>
-            <?php foreach(html_escape($students) as $student): ?>
+            <?php foreach($students as $student): ?>
+
             <tr>
                 <td><?=$student['id'];?></td>
                 <td><?=$student['last_name'];?></td>
@@ -27,13 +28,15 @@
                 <td><?=$student['email'];?></td>
                 <td><?=$student['Role'];?></td>
                 <td>
-                    <a href="<?=site_url('user/update/'.$student['id']);?>">Update</a>
-                    <a href="<?=site_url('user/soft-delete/'.$student['id']);?>">Delete</a>
+                   <a href="/user/update/<?=$student['id'];?>">Update</a>
+                   <a href="/user/soft-delete/<?=$student['id'];?>">Delete</a>
+
                 </td>
             </tr>
             <?php endforeach; ?>
         </table>
-        <a href="<?=site_url('user/create');?>">Create Record</a>
+        <a href="/user/create">Create Record</a>
+
     </div>
 </body>
 </html>
