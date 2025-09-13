@@ -10,9 +10,8 @@
 <body>
     <div class="panel">
         <h1>Username: <?=html_escape($username);?></h1>
-<h1>Name: <?=html_escape($name);?></h1>
-<a href="/user/show">Back to Showdata</a>
-
+        <h1>Name: <?=html_escape($name);?></h1>
+        <a href="<?=site_url('user/show');?>" class="back-link">Back to Showdata</a>
 
     </div>
 </body>
