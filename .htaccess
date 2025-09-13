@@ -1,8 +1,9 @@
+# Set default charset
 AddDefaultCharset UTF-8
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    # RewriteBase /   <-- optional kung root deployment
+    # No need for RewriteBase since root deployment
 
     # Allow index.php
     <Files "index.php">

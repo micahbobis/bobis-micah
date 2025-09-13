@@ -11,21 +11,18 @@
 <body>
     <div class="panel">
         <h1>UPDATE VIEW</h1>
-            <a href="/user/update/<?=$student['id'];?>">Update</a>
-            <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" value="<?=html_escape($students['last_name']);?>">
+            <form action="/user/update/<?=$students['id'];?>" method="post">
+    <label>Last Name</label>
+    <input type="text" name="last_name" value="<?=html_escape($students['last_name']);?>">
+    <label>First Name</label>
+    <input type="text" name="first_name" value="<?=html_escape($students['first_name']);?>">
+    <label>Email</label>
+    <input type="email" name="email" value="<?=html_escape($students['email']);?>">
+    <label>Role</label>
+    <input type="text" name="role" value="<?=html_escape($students['Role']);?>">
+    <input type="submit" value="Update">
+</form>
 
-            <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" value="<?=html_escape($students['first_name']);?>">
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?=html_escape($students['email']);?>">
-
-            <label for="role">Role:</label>
-            <input type="text" id="role" name="role" value="<?=html_escape($students['Role']);?>">
-
-            <input type="submit" value="Update">
-        </form>
     </div>
 </body>
 </html>
