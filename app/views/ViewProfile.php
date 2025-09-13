@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ViewProfile</title>
-<link rel="stylesheet" href="<?=base_url();?>public/css/style4.css">
+<link rel="stylesheet" href="/css/style4.css">
+
 </head>
 <body>
     <div class="panel">
