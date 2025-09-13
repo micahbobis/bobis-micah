@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ViewProfile</title>
-    <link rel="stylesheet" href="/public/css/style4.css">
+    <link rel="stylesheet" href="/public/css/style3.css">
 
 </head>
 <body>

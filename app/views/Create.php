@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create</title>
-    <link rel="stylesheet" href="/public/css/style3.css">
-
+    <link rel="stylesheet" href="<?=base_url();?>public/css/style3.css">
 </head>
 <body>
     <div class="panel">
         <h1>CREATE VIEW</h1>
-        <form action="/user/create" method="post">
-
+        <form action="<?=site_url('user/create');?>" method="post">
             <label for="last_name">Last Name</label>
             <input type="text" id="last_name" name="last_name" required>
             
