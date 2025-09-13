@@ -10,7 +10,7 @@
 <body>
     <div class="panel">
         <h1>CREATE VIEW</h1>
-        <form action="/user/create" method="post">
+            <form action="/user/create" method="post">
             <label for="last_name">Last Name</label>
             <input type="text" id="last_name" name="last_name" required>
             

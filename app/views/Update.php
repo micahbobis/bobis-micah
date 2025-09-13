@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update</title>
-   <link rel="stylesheet" href="/css/style2.css">
+    <link rel="stylesheet" href="/public/css/style2.css">
 
 
 </head>
 <body>
     <div class="panel">
         <h1>UPDATE VIEW</h1>
-<a href="/user/update/<?=$student['id'];?>">Update</a>
+            <a href="/user/update/<?=$student['id'];?>">Update</a>
             <label for="last_name">Last Name:</label>
             <input type="text" id="last_name" name="last_name" value="<?=html_escape($students['last_name']);?>">
 
