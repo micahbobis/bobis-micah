@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Showdata</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="<?=base_url();?>public/css/style.css">
+
 
 </head>
 <body>
@@ -20,20 +21,19 @@
                 <th>Action</th>
             </tr>
             <?php foreach($students as $student): ?>
-
-            <tr>
-                <td><?=$student['id'];?></td>
-                <td><?=$student['last_name'];?></td>
-                <td><?=$student['first_name'];?></td>
-                <td><?=$student['email'];?></td>
-                <td><?=$student['Role'];?></td>
-                <td>
-                   <a href="/user/update/<?=$student['id'];?>">Update</a>
-                   <a href="/user/soft-delete/<?=$student['id'];?>">Delete</a>
-
-                </td>
-            </tr>
-            <?php endforeach; ?>
+<tr>
+    <td><?=html_escape($student['id']);?></td>
+    <td><?=html_escape($student['last_name']);?></td>
+    <td><?=html_escape($student['first_name']);?></td>
+    <td><?=html_escape($student['email']);?></td>
+    <td><?=html_escape($student['Role']);?></td>
+    <td>
+       <a href="/user/update/<?=$student['id'];?>">Update</a>
+       <a href="/user/soft-delete/<?=$student['id'];?>">Delete</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+<a href="/user/create">Create Record</a>
         </table>
         <a href="/user/create">Create Record</a>
 
