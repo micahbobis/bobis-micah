@@ -1,17 +1,9 @@
-# Ensure UTF-8
+#Ensure UTF-8
 AddDefaultCharset UTF-8
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    Rewrite Base /
 
-    # Allow access to index.php
-    <Files "index.php">
-        Require all granted
-    </Files>
-
-    # Prevent directory listing
-    Options -Indexes
 
     # Route all requests through index.php
     RewriteCond %{REQUEST_FILENAME} !-f
