@@ -2,6 +2,7 @@
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class UserController extends Controller {
+
     public function __construct()
     {
         parent::__construct();
@@ -15,7 +16,7 @@ class UserController extends Controller {
 
     public function show()
     {
-        $data['students'] = $this->UserModel->all(); // Ensure 'deleted_at' exists or remove soft-delete query
+        $data['students'] = $this->UserModel->all();
         $this->call->view('Showdata', $data);
     }
 
@@ -27,10 +28,11 @@ class UserController extends Controller {
                 'last_name' => $this->io->post('last_name'),
                 'first_name' => $this->io->post('first_name'),
                 'email' => $this->io->post('email'),
-                'Role' => $this->io->post('role')
+                'Role' => $this->io->post('role')  // match case sa DB
             ];
+
             if($this->UserModel->insert($data)) {
-                redirect('/user/show'); // ✅ absolute path
+                redirect('/user/show'); // use leading slash for Render
             } else {
                 echo 'Failed to insert data.';
             }
@@ -45,13 +47,14 @@ class UserController extends Controller {
 
         if($this->io->method() == 'post')
         {
-            $update_data = [
+            $updateData = [
                 'last_name' => $this->io->post('last_name'),
                 'first_name' => $this->io->post('first_name'),
                 'email' => $this->io->post('email'),
                 'Role' => $this->io->post('role')
             ];
-            if($this->UserModel->update($id, $update_data)) {
+
+            if($this->UserModel->update($id, $updateData)) {
                 redirect('/user/show');
             } else {
                 echo 'Failed to update data.';
@@ -75,7 +78,7 @@ class UserController extends Controller {
         if($this->UserModel->soft_delete($id)) {
             redirect('/user/show');
         } else {
-            echo 'Failed to soft-delete data.';
+            echo 'Failed to delete data.';
         }
     }
 
