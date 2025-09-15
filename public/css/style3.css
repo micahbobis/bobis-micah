@@ -10,12 +10,10 @@ body {
     align-items: center;
     height: 100vh;
     color: #333;
-
-    
 }
-.panel {
-    background: rgba(234, 244, 234, 0.9); /* pastel matcha with 90% opacity */
 
+.panel {
+    background: rgba(234, 244, 234, 0.9);
     padding: 30px 40px;
     border: 2px solid #7a947e;
     border-radius: 12px;
