@@ -11,24 +11,29 @@ body {
     color: #333;
 }
 
+.panel {
+    background: rgba(234, 244, 234, 0.9); /* pastel matcha with 90% opacity */
+
+    padding: 30px 40px;
+    border: 2px solid #7a947e;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: box-shadow 0.5s, transform 0.3s;
+    width: 100%;
+    max-width: 400px;
+}
+
+.panel:hover {
+    box-shadow: 0 0 20px rgba(83, 129, 99, 0.4);
+    transform: translateY(-2px);
+}
+
 .center-panel {
     text-align: center; 
-    width: 100%;
-    max-width: 900px;
-    background: rgba(234, 244, 234, 0.95);
-    padding: 30px;
-    border-radius: 12px;
-    border: 2px solid #7a947e;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-h1 {
-    margin-bottom: 25px;
-    color: #2c5f3f;
-    font-weight: 400;
-    font-size: 1.8rem;
-}
-
+/* Table inside panel */
 table {
     width: 100%;
     margin: 20px 0;
@@ -58,6 +63,7 @@ tr:hover {
     background: #e9f3ff;
 }
 
+/* Action buttons */
 a {
     text-decoration: none;
     font-size: 14px;
@@ -74,21 +80,28 @@ a[href*="update"] {
 
 a[href*="update"]:hover {
     background: #688771;
+    color: #fff;
 }
 
-a[href*="confirm-delete"] {
+a[href*="create"] {
+    background: #ffffff24;
+    color: #fff;
+}
+
+a[href*="delete"] {
     background: #81466a;
     color: #fff;
 }
 
-a[href*="confirm-delete"]:hover {
+a[href*="delete"]:hover {
     background: #4f2d30;
 }
 
+/* Create button */
 .create-btn {
     display: block;
     width: max-content;
-    margin: 20px auto 0 auto;
+    margin: 0 auto 20px auto;
     padding: 10px 20px;
     background: #32593b;
     color: #fff;

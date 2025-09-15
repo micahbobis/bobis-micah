@@ -5,8 +5,6 @@ class UserController extends Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->call->model('UserModel');
-        $this->call->library('pagination'); // ✅ load pagination library
     }
 
     public function profile($username, $name)
@@ -16,46 +14,9 @@ class UserController extends Controller {
         $this->call->view('ViewProfile', $data);
     }
 
-    // ✅ Updated show() with pagination
     public function show()
     {
-        // Current page
-        $page = 1;
-        if (isset($_GET['page']) && !empty($_GET['page'])) {
-            $page = $this->io->get('page');
-        }
-
-        // Optional search query
-        $q = '';
-        if (isset($_GET['q']) && !empty($_GET['q'])) {
-            $q = trim($this->io->get('q'));
-        }
-
-        $records_per_page = 5;
-
-        // Fetch paginated records from model
-        $all = $this->UserModel->page($q, $records_per_page, $page);
-        $data['students'] = $all['records'];
-        $total_rows = $all['total_rows'];
-
-        // Pagination setup
-        $this->pagination->set_options([
-            'first_link'     => '⏮ First',
-            'last_link'      => 'Last ⏭',
-            'next_link'      => 'Next →',
-            'prev_link'      => '← Prev',
-            'page_delimiter' => '&page='
-        ]);
-        $this->pagination->set_theme('default');
-        $this->pagination->initialize(
-            $total_rows,
-            $records_per_page,
-            $page,
-            site_url('user/show') . '?q=' . urlencode($q)
-        );
-        $data['page'] = $this->pagination->paginate();
-
-        // Load the view
+        $data['students'] = $this->UserModel->all();
         $this->call->view('Showdata', $data);
     }
 
@@ -76,6 +37,7 @@ class UserController extends Controller {
             ];
 
             if ($this->UserModel->insert($data)) {
+                // 👉 palit: siguradong tama ang URL kahit walang clean rewrite
                 redirect(site_url('user/show'));
             } else {
                 echo 'Failed to insert data.';
@@ -104,6 +66,7 @@ class UserController extends Controller {
             ];
 
             if ($this->UserModel->update($id, $data)) {
+                // 👉 palit dito
                 redirect(site_url('user/show'));
             } else {
                 echo 'Failed to update data.';
@@ -116,6 +79,7 @@ class UserController extends Controller {
     public function delete($id)
     {
         if ($this->UserModel->delete($id)) {
+            // 👉 palit dito
             redirect(site_url('user/show'));
         } else {
             echo 'Failed to delete data.';
@@ -125,6 +89,7 @@ class UserController extends Controller {
     public function soft_delete($id)
     {
         if ($this->UserModel->soft_delete($id)) {
+            // 👉 palit dito
             redirect(site_url('user/show'));
         } else {
             echo 'Failed to delete data.';
@@ -134,6 +99,7 @@ class UserController extends Controller {
     public function restore($id)
     {
         if ($this->UserModel->restore($id)) {
+            // 👉 palit dito
             redirect(site_url('user/show'));
         } else {
             echo 'Failed to restore data.';
