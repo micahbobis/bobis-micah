@@ -18,7 +18,8 @@ class UserController extends Controller {
     public function show()
 {
     // ✅ default 1 pag walang ?page
-    $page = (int) $this->io->get('page', 1);
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
 
     $q = trim($this->io->get('q', ''));
 
