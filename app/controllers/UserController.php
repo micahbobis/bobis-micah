@@ -6,7 +6,6 @@ class UserController extends Controller {
     public function __construct()
     {
         parent::__construct();
-        // Walang ibang logic dito para maiwasan ang redeclare
     }
 
     public function profile($username, $name)
@@ -18,23 +17,26 @@ class UserController extends Controller {
 
     public function show()
     {
-        // dito na lahat ng pagination code
+        // kunin current page
         $page = 1;
-        if (isset($_GET['page']) && ! empty($_GET['page'])) {
-            $page = $this->io->get('page');
+        if ($this->io->get('page')) {
+            $page = (int) $this->io->get('page');
         }
 
+        // kunin search query
         $q = '';
-        if (isset($_GET['q']) && ! empty($_GET['q'])) {
+        if ($this->io->get('q')) {
             $q = trim($this->io->get('q'));
         }
 
         $records_per_page = 10;
 
+        // kuha data mula model
         $all = $this->UserModel->page($q, $records_per_page, $page);
-        $data['students'] = $all['records'];
-        $total_rows = $all['total_rows'];
+        $data['students']  = $all['records'];
+        $total_rows        = $all['total_rows'];
 
+        // setup pagination
         $this->pagination->set_options([
             'first_link'     => '⏮ First',
             'last_link'      => 'Last ⏭',
@@ -42,27 +44,28 @@ class UserController extends Controller {
             'prev_link'      => '← Prev',
             'page_delimiter' => '&page='
         ]);
-        $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
-        $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('user/show').'?q='.$q);
+        $this->pagination->set_theme('bootstrap');
+        $this->pagination->initialize(
+            $total_rows,
+            $records_per_page,
+            $page,
+            site_url('user/show').'?q='.$q
+        );
 
         $data['page'] = $this->pagination->paginate();
-        $this->call->view('user/show', $data);
+
+        // 👉 siguraduhing ito ang tinatawag na view file
+        $this->call->view('Showdata', $data);
     }
 
     public function create()
     {
-        if ($this->io->method() == 'post')
-        {
-            $last_name  = $this->io->post('last_name');
-            $first_name = $this->io->post('first_name');
-            $email      = $this->io->post('email');
-            $role       = $this->io->post('role');
-
+        if ($this->io->method() == 'post') {
             $data = [
-                'last_name'  => $last_name,
-                'first_name' => $first_name,
-                'email'      => $email,
-                'Role'       => $role
+                'last_name'  => $this->io->post('last_name'),
+                'first_name' => $this->io->post('first_name'),
+                'email'      => $this->io->post('email'),
+                'Role'       => $this->io->post('role')
             ];
 
             if ($this->UserModel->insert($data)) {
@@ -79,21 +82,15 @@ class UserController extends Controller {
     {
         $data['students'] = $this->UserModel->find($id);
 
-        if ($this->io->method() == 'post')
-        {
-            $last_name  = $this->io->post('last_name');
-            $first_name = $this->io->post('first_name');
-            $email      = $this->io->post('email');
-            $role       = $this->io->post('role');
-
-            $data = [
-                'last_name'  => $last_name,
-                'first_name' => $first_name,
-                'email'      => $email,
-                'Role'       => $role
+        if ($this->io->method() == 'post') {
+            $updateData = [
+                'last_name'  => $this->io->post('last_name'),
+                'first_name' => $this->io->post('first_name'),
+                'email'      => $this->io->post('email'),
+                'Role'       => $this->io->post('role')
             ];
 
-            if ($this->UserModel->update($id, $data)) {
+            if ($this->UserModel->update($id, $updateData)) {
                 redirect(site_url('user/show'));
             } else {
                 echo 'Failed to update data.';

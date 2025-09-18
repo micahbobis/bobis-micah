@@ -55,5 +55,7 @@ $router->match('/user/update/{id}', 'UserController::update', ['GET', 'POST']);
 $router->get('/user/delete/{id}', 'UserController::delete');
 $router->get('/user/soft-delete/{id}', 'UserController::soft_delete'); // ✅ added slash
 $router->get('/user/restore/{id}', 'UserController::restore');
+$route['user/show'] = 'UserController/show';
+
 
 
