@@ -11,7 +11,7 @@
 <body>
     <div class="panel">
         <h1>UPDATE VIEW</h1>
-     <form action="/user/update/<?= $students['id']; ?>" method="post">
+     <form action="/user/update/<?= html_escape($students['id']); ?>" method="post">
             <label for="last_name">Last Name:</label>
             <input type="text" id="last_name" name="last_name" value="<?=html_escape($students['last_name']);?>">
 
