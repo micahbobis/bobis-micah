@@ -18,24 +18,23 @@ class UserController extends Controller {
 
     public function show()
     {
-        // --- Ayos na default value para sa pagination ---
-        // gamit ang LavaLust I/O helper para hindi mag-warning
-        $page = (int) $this->io->get('page', 1);
+        // dito na lahat ng pagination code
+        $page = 1;
+        if (isset($_GET['page']) && ! empty($_GET['page'])) {
+            $page = $this->io->get('page');
+        }
 
-        // Search query (optional)
         $q = '';
-        if ($this->io->get('q')) {
+        if (isset($_GET['q']) && ! empty($_GET['q'])) {
             $q = trim($this->io->get('q'));
         }
 
         $records_per_page = 10;
 
-        // Kunin records at total rows mula sa model
         $all = $this->UserModel->page($q, $records_per_page, $page);
         $data['students'] = $all['records'];
         $total_rows = $all['total_rows'];
 
-        // Settings ng pagination links
         $this->pagination->set_options([
             'first_link'     => '⏮ First',
             'last_link'      => 'Last ⏭',
@@ -46,11 +45,8 @@ class UserController extends Controller {
         $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
         $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('user/show').'?q='.$q);
 
-        // I-pass ang HTML ng pagination sa view
         $data['page'] = $this->pagination->paginate();
-
-        // ✅ siguraduhing pareho ang path ng view sa aktwal mong file
-        $this->call->view('Showdata', $data);
+        $this->call->view('user/show', $data);
     }
 
     public function create()
