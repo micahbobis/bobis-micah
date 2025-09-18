@@ -29,7 +29,7 @@ class UserController extends Controller {
             $q = trim($this->io->get('q'));
         }
 
-        $records_per_page = 10;
+        $records_per_page = 5;
 
         $all = $this->UserModel->page($q, $records_per_page, $page);
         $data['students'] = $all['records'];
@@ -43,7 +43,7 @@ class UserController extends Controller {
             'page_delimiter' => '&page='
         ]);
         $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
-        $this->pagination->initialize($total_rows, $records_per_page, $page, 'user/show?q='.$q);
+        $this->pagination->initialize($total_rows, $records_per_page, $page,'user/show?q='.$q);
 
         $data['page'] = $this->pagination->paginate();
         $this->call->view('user/show', $data);
