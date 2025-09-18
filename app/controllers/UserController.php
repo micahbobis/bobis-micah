@@ -16,47 +16,37 @@ class UserController extends Controller {
     }
 
     public function show()
-    {
-        // kunin current page
-        $page = 1;
-        if ($this->io->get('page')) {
-            $page = (int) $this->io->get('page');
-        }
+{
+    // ✅ default 1 pag walang ?page
+    $page = (int) $this->io->get('page', 1);
 
-        // kunin search query
-        $q = '';
-        if ($this->io->get('q')) {
-            $q = trim($this->io->get('q'));
-        }
+    $q = trim($this->io->get('q', ''));
 
-        $records_per_page = 10;
+    $records_per_page = 10;
 
-        // kuha data mula model
-        $all = $this->UserModel->page($q, $records_per_page, $page);
-        $data['students']  = $all['records'];
-        $total_rows        = $all['total_rows'];
+    $all = $this->UserModel->page($q, $records_per_page, $page);
+    $data['students']  = $all['records'];
+    $total_rows        = $all['total_rows'];
 
-        // setup pagination
-        $this->pagination->set_options([
-            'first_link'     => '⏮ First',
-            'last_link'      => 'Last ⏭',
-            'next_link'      => 'Next →',
-            'prev_link'      => '← Prev',
-            'page_delimiter' => '&page='
-        ]);
-        $this->pagination->set_theme('bootstrap');
-        $this->pagination->initialize(
-            $total_rows,
-            $records_per_page,
-            $page,
-            site_url('user/show').'?q='.$q
-        );
+    $this->pagination->set_options([
+        'first_link'     => '⏮ First',
+        'last_link'      => 'Last ⏭',
+        'next_link'      => 'Next →',
+        'prev_link'      => '← Prev',
+        'page_delimiter' => '&page='
+    ]);
+    $this->pagination->set_theme('bootstrap');
+    $this->pagination->initialize(
+        $total_rows,
+        $records_per_page,
+        $page,
+        site_url('user/show').'?q='.$q
+    );
 
-        $data['page'] = $this->pagination->paginate();
+    $data['page'] = $this->pagination->paginate();
 
-        // 👉 siguraduhing ito ang tinatawag na view file
-        $this->call->view('Showdata', $data);
-    }
+    $this->call->view('Showdata', $data);
+}
 
     public function create()
     {
