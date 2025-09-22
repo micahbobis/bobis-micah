@@ -20,32 +20,39 @@
 
 /* --- Reset --- */
 *{margin:0;padding:0;box-sizing:border-box;}
-body{
+body {
     font-family: 'Montserrat', sans-serif;
-    background: url('<?= base_url() ?>public/images/bg.png') no-repeat center center fixed;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:2rem;
-     position: relative;
+   background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
+    background-size: cover; /* full screen */
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: #2F3E2F; /* readable on bg */
 }
 
+/* optional overlay for pastel macha tint */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(223, 240, 210, 0.35); /* pastel macha overlay for readability */
+    background: rgba(223, 240, 210, 0.25);
     z-index: -1;
 }
-/* --- Card --- */
-.container{width:100%;max-width:720px;}
-.card{
-    background: var(--off-white);
-    border: 2px solid var(--matcha-dark);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    /* no rounded corners */
+
+/* Card / Panel */
+.card {
+    background: rgba(255, 255, 255, 0.75); /* semi-transparent off-white */
+    border-radius: 0; /* no rounded corners */
+    padding: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    backdrop-filter: blur(5px);
 }
+
+.container{width:100%;max-width:720px;}
+
 .card-header{
     background: var(--matcha-dark);
     padding:1.5rem 2rem;
