@@ -1,356 +1,213 @@
-/* =========================
-   Body & Background
-========================= */
+/* ===== Global Styles ===== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: url('../images/bg.png') no-repeat center center fixed;
     background-size: cover;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #333;
+    color: #333; /* Dark gray text */
+    background-color: #f7f8f5; /* Off-white fallback */
 }
 
-/* =========================
-   Panel Styles
-========================= */
-.panel {
-    background: rgba(234, 244, 234, 0.9); /* pastel matcha with 90% opacity */
-    padding: 30px 40px;
-    border: 2px solid #7a947e;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+h1, h2, h3 {
+    color: #2e4d3d; /* Dark matcha green */
     text-align: center;
-    transition: box-shadow 0.5s, transform 0.3s;
-    width: 100%;
-    max-width: 400px;
+    margin-top: 20px;
 }
 
-.panel:hover {
-    box-shadow: 0 0 20px rgba(83, 129, 99, 0.4);
-    transform: translateY(-2px);
-}
-
-/* =========================
-   Headings
-========================= */
-h1 {
-    text-align: center;
-    color: #2c5f3f;
+h2 {
     font-weight: 400;
-    margin-bottom: 20px;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
-/* =========================
-   Form Container
-========================= */
+/* ===== Form Container ===== */
 .form-container {
-    width: 400px;
-    margin: 0 auto;
-    background: #fff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+    background-color: rgba(242, 247, 240, 0.9); /* Light pastel overlay */
+    max-width: 450px;
+    margin: 30px auto;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-label {
+.form-container label {
+    font-weight: 500;
+    margin-top: 10px;
     display: block;
-    margin-top: 12px;
-    font-weight: 500;
-    color: #2c5f3f;
-    font-size: 0.95rem;
-    text-align: left;
 }
 
-input[type="text"],
-input[type="email"],
-select {
+.form-container input[type="text"],
+.form-container input[type="email"] {
     width: 100%;
-    padding: 10px;
-    margin-top: 6px;
-    border: 2px solid #a3c4a8;
-    border-radius: 6px;
-    font-size: 1rem;
-    background: #fff;
-    transition: border 0.3s, box-shadow 0.3s;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-select:focus {
-    border-color: #2c5f3f;
-    box-shadow: 0 0 8px rgba(44,95,63,0.3);
-    outline: none;
-}
-
-/* =========================
-   Submit Button
-========================= */
-input[type="submit"], button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background: #2c5f3f;
-    border: 2px solid #1f4730;
-    border-radius: 6px;
-    color: #f0f4f8;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
-}
-
-input[type="submit"]:hover, button:hover {
-    background: #1f4730;
-    box-shadow: 0 0 12px rgba(44,95,63,0.6);
-    transform: translateY(-1px);
-}
-
-/* =========================
-   Back Link
-========================= */
-.back-link {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 8px 16px;
-    background: #2c5f3f;
-    color: #f0f4f8;
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.3s, box-shadow 0.3s;
-}
-
-.back-link:hover {
-    background: #1f4730;
-    box-shadow: 0 0 10px rgba(44,95,63,0.5);
-}
-
-/* =========================
-   Table Styles
-========================= */
-table {
-    width: 100%;
-    margin: 20px 0;
-    border-collapse: collapse;
-    background: #fff;
+    padding: 10px 12px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ccc;
     border-radius: 8px;
+    background-color: #f7f8f5;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="email"]:focus {
+    outline: none;
+    border-color: #2e4d3d;
+    box-shadow: 0 0 5px rgba(46, 77, 61, 0.5);
+}
+
+.form-container button {
+    background-color: #2e4d3d;
+    color: #f7f8f5;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.form-container button:hover {
+    background-color: #3b6b50;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px 5px 0 0;
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: #f7f8f5;
+    background-color: #2e4d3d;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #3b6b50;
+}
+
+.btn.danger {
+    background-color: #a23e3e;
+}
+
+.btn.danger:hover {
+    background-color: #d94f4f;
+}
+
+.btn.create {
+    background-color: #3b6b50;
+}
+
+.btn.checkin {
+    background-color: #4a7f5b;
+}
+
+.btn.list {
+    background-color: #2e4d3d;
+}
+
+.btn.home {
+    background-color: #2e4d3d;
+}
+
+/* ===== Table Styles ===== */
+table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(242, 247, 240, 0.9);
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 th, td {
     padding: 12px 15px;
-    text-align: center;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
 }
 
 th {
-    background: #35423a;
-    color: #fff;
-    font-weight: 500;
+    background-color: #2e4d3d;
+    color: #f7f8f5;
 }
 
 tr:nth-child(even) {
-    background: #f9f9f9;
+    background-color: #f1f5f1;
 }
 
 tr:hover {
-    background: #e9f3ff;
+    background-color: #e4f0e4;
 }
 
-/* =========================
-   Action Links
-========================= */
-a {
-    text-decoration: none;
-    font-size: 14px;
-    margin: 0 5px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    transition: 0.3s;
-}
-
-a[href*="update"] {
-    background: #1a5747;
-    color: #ffffff;
-}
-
-a[href*="update"]:hover {
-    background: #688771;
-    color: #fff;
-}
-
-a[href*="create"] {
-    background: #ffffff24;
-    color: #fff;
-}
-
-a[href*="delete"] {
-    background: #81466a;
-    color: #fff;
-}
-
-a[href*="delete"]:hover {
-    background: #4f2d30;
-}
-
-/* =========================
-   Pagination
-========================= */
-.pagination-wrapper {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.pagination-wrapper ul {
-    display: inline-flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.pagination-wrapper ul li {
-    margin: 0 5px;
-}
-
-.pagination-wrapper ul li a {
-    text-decoration: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #333;
-}
-
-.pagination-wrapper ul li a:hover,
-.pagination-wrapper ul li.active a {
-    background: #333;
-    color: #fff;
-}
-
-/* =========================
-   Responsive
-========================= */
-@media (max-width: 480px) {
-    .panel, .form-container {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    input[type="submit"], button {
-        padding: 10px;
-    }
-}
-
-/* =========================
-   Hero section for role.php
-========================= */
-.hero {
+/* ===== Top Nav / Search ===== */
+.topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 90%;
-    max-width: 700px;
-    background: #fffbea;
-    border: 5px solid #f9ca24;
-    border-radius: 25px;
-    padding: 35px;
-    margin: 40px auto 20px;
-    text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    position: relative;
-    z-index: 1;
+    max-width: 1000px;
+    margin: 20px auto;
 }
 
-.hero h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    color: #2c3e50;
+.topnav input.search {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+.topnav button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #2e4d3d;
+    color: #f7f8f5;
+    cursor: pointer;
+}
+
+.topnav button:hover {
+    background-color: #3b6b50;
+}
+
+/* ===== Hero / Dashboard ===== */
+.hero {
+    background-color: rgba(46, 77, 61, 0.1);
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
 
 .hero p {
-    font-size: 1rem;
-    color: #2c3e50;
-    line-height: 1.5;
+    font-size: 1.1rem;
+    color: #333;
 }
 
-/* =========================
-   Buttons under hero section
-========================= */
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin-bottom: 40px;
-    z-index: 1;
-    position: relative;
-}
-
-.buttons .btn {
-    text-decoration: none;
-    padding: 12px 25px;
-    border-radius: 25px;
-    font-weight: bold;
+/* ===== Actions / Pagination ===== */
+.actions {
     text-align: center;
-    transition: 0.3s ease;
-    font-size: 1rem;
+    margin: 20px 0;
 }
 
-/* Add user button */
-.buttons .checkin {
-    background: #55efc4;
-    color: #2d3436;
+.pagination-wrapper {
+    text-align: center;
+    margin: 15px 0;
 }
 
-.buttons .checkin:hover {
-    background: #00b894;
-    color: white;
+.pagination-wrapper a {
+    padding: 8px 12px;
+    margin: 0 3px;
+    background-color: #2e4d3d;
+    color: #f7f8f5;
+    border-radius: 6px;
+    text-decoration: none;
 }
 
-/* View users button */
-.buttons .list {
-    background: #74b9ff;
-    color: white;
+.pagination-wrapper a:hover {
+    background-color: #3b6b50;
 }
-
-.buttons .list:hover {
-    background: #0984e3;
-}
-
-/* Home button */
-.buttons .home {
-    background: #ffda79;
-    color: #2c3e50;
-}
-
-.buttons .home:hover {
-    background: #f1c40f;
-    color: white;
-}
-
-/* =========================
-   Responsive adjustments
-========================= */
-@media (max-width: 480px) {
-    .hero {
-        padding: 25px;
-        margin: 30px auto 15px;
-    }
-
-    .hero h1 {
-        font-size: 1.5rem;
-    }
-
-    .hero p {
-        font-size: 0.95rem;
-    }
-
-    .buttons .btn {
-        padding: 10px 18px;
-        font-size: 0.9rem;
-    }
-}
-
