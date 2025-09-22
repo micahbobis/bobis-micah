@@ -160,8 +160,8 @@ input:focus{
         <div class="card-body">
             <form action="<?= site_url('users/create') ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-top">
-                    <img src="<?= base_url('public/images/mecz.jpg') ?>" alt="Profile" class="profile-preview" id="profilePreview">
-
+                    <img src="<?= base_url() ?>public/default-avatar.png" alt="Default profile" class="profile-preview" id="profilePreview">
+                    <input type="file" name="profile" id="profile" accept="image/*">
                 </div>
 
                 <div class="form-group">

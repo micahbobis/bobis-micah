@@ -6,6 +6,8 @@ class UserController extends Controller {
     {
         parent::__construct();
         $this->call->model('UserModel');
+        $this->load->helper('url');
+
     }
 
     public function view()
@@ -45,7 +47,7 @@ class UserController extends Controller {
         if ($this->io->method() === 'post') {
             $username = $this->io->post('username');
             $email = $this->io->post('email');
-            $imagePath = 'public/default-avatar.png'; // default
+            $imagePath = 'public/images/mecz.jpg'; // default
 
             // Handle file upload
             if (!empty($_FILES['profile']['name'])) {
