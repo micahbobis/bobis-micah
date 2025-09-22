@@ -1,0 +1,238 @@
+/* =========================
+   Body background (playground theme)
+========================= */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to top, #c8f7ff 0%, #a6e4ff 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================
+   Top navigation
+========================= */
+.topnav {
+    width: 100%;
+    background: #fffbea;
+    border-bottom: 5px solid #f9ca24;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.topnav h1 {
+    margin: 0 0 10px;
+    color: #2c3e50;
+}
+
+/* =========================
+   Search bar
+========================= */
+.search {
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 2px solid #27ae60;
+    outline: none;
+    width: 220px;
+    transition: 0.3s;
+}
+
+.search:focus {
+    box-shadow: 0 0 8px #27ae60;
+}
+
+/* Search button */
+.topnav .btn {
+    background: #74b9ff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.topnav .btn:hover {
+    background: #0884e4;
+}
+
+/* =========================
+   Headings
+========================= */
+h2 {
+    margin: 20px 0 10px;
+    color: #2c3e50;
+    text-shadow: 1px 1px #fff;
+}
+
+/* =========================
+   Table style (showdata & restore)
+========================= */
+table {
+    border-collapse: collapse;
+    width: 90%;
+    max-width: 900px;
+    margin: 15px auto;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: center;
+    border: none;
+}
+
+table th {
+    background: #f9ca24;
+    color: #2c3e50;
+    font-size: 1rem;
+}
+
+table tr:nth-child(even) {
+    background: #fef9e7;
+}
+
+table tr:hover {
+    background: #fdebd0;
+}
+
+/* =========================
+   Action links for showdata
+========================= */
+table a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+/* Update button */
+table a[href*="update"] {
+    background: #74b9ff;
+    color: white;
+}
+
+table a[href*="update"]:hover {
+    background: #0984e3;
+}
+
+/* Delete button */
+table a[href*="softdelete"], 
+table a[href*="delete"] {
+    background: #ff7675;
+    color: white;
+}
+
+table a[href*="softdelete"]:hover,
+table a[href*="delete"]:hover {
+    background: #d63031;
+}
+
+/* Restore button */
+table a[href*="retrieve"] {
+    background: #55efc4;
+    color: #2d3436;
+}
+
+table a[href*="retrieve"]:hover {
+    background: #00b894;
+    color: white;
+}
+
+/* =========================
+   Pagination
+========================= */
+.pagination {
+    margin: 20px auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.pagination a,
+.pagination strong,
+.pagination span {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #74b9ff;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+    border: 2px solid #0984e3;
+}
+
+.pagination a:hover {
+    background: #0984e3;
+}
+
+.pagination strong {
+    background: #f9ca24;
+    color: #2c3e50;
+    border-color: #e1b12c;
+}
+
+.pagination span {
+    background: #dfe6e9;
+    color: #636e72;
+    border-color: #b2bec3;
+    cursor: not-allowed;
+}
+
+/* =========================
+   Bottom actions (showdata & restore)
+========================= */
+.actions {
+    margin: 20px 0 40px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    z-index: 1;
+    position: relative;
+}
+
+.actions .btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+/* Create/Home buttons */
+.actions .create {
+    background: #ffda79;
+    color: #2c3e50;
+}
+
+.actions .create:hover {
+    background: #f1c40f;
+    color: white;
+}
+
+/* Danger button (delete/restore) */
+.actions .danger {
+    background: #ff7675;
+    color: white;
+}
+
+.actions .danger:hover {
+    background: #d63031;
+}

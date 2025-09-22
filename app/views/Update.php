@@ -3,29 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update</title>
-    <link rel="stylesheet" href="/public/css/style2.css">
-
-
+    <title>Update User</title>
+    <link rel="stylesheet" href="<?= base_url(); ?>public/css/style.css">
 </head>
 <body>
-    <div class="panel">
-        <h1>UPDATE VIEW</h1>
-     <form action="/user/update/<?= html_escape($students['id']); ?>" method="post">
-            <label for="last_name">Last Name:</label>
-            <input type="text" id="last_name" name="last_name" value="<?=html_escape($students['last_name']);?>">
+    <h1>✏️ Update User Information</h1>
+    <h2>Please update the details below:</h2>
 
-            <label for="first_name">First Name:</label>
-            <input type="text" id="first_name" name="first_name" value="<?=html_escape($students['first_name']);?>">
+    <form action="<?= site_url('/user/update/'.$students['id']); ?>" method="post">
+        <label for="last_name">📝 Last Name</label><br>
+        <input type="text" name="last_name" value="<?= html_escape($students['last_name']); ?>" required><br>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?=html_escape($students['email']);?>">
+        <label for="first_name">📝 First Name</label><br>
+        <input type="text" name="first_name" value="<?= html_escape($students['first_name']); ?>" required><br>
 
-            <label for="role">Role:</label>
-            <input type="text" id="role" name="role" value="<?=html_escape($students['Role']);?>">
+        <label for="email">📧 Email</label><br>
+        <input type="email" name="email" value="<?= html_escape($students['email']); ?>" required><br>
 
-            <input type="submit" value="Update">
-        </form>
-    </div>
+        <label for="role">🎭 Role</label><br>
+        <input type="text" name="role" value="<?= html_escape($students['Role']); ?>" required><br>
+
+        <button type="submit">✅ Update</button>
+        <a href="<?= site_url('/user/show'); ?>" class="btn danger">↩️ Back</a>
+    </form>
 </body>
 </html>
