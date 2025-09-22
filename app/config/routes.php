@@ -56,12 +56,13 @@ $router->get('/user/profile/{username}/{name}', 'UserController::profile');
 
 // User CRUD routes
 $router->get('/user/show', 'UserController::show');
-$router->match('/user/create', 'UserController::create', ['GET', 'POST']);
-$router->match('/user/update/{id}', 'UserController::update', ['GET', 'POST']);
+$router->match('/user/create', 'UserController::create', ['GET','POST']);
+$router->match('/user/update/{id}', 'UserController::update', ['GET','POST']);
 $router->get('/user/delete/{id}', 'UserController::delete');
-$router->get('/user/softdelete/{id}', 'UserController::softdelete'); // matches controller method
-$router->get('/user/restore', 'UserController::restore'); // list of deleted users
-$router->get('/user/retrieve/{id}', 'UserController::retrieve'); // restore a specific user
+$router->get('/user/softdelete/{id}', 'UserController::softdelete');
+$router->get('/user/restore', 'UserController::restore');
+$router->get('/user/retrieve/{id}', 'UserController::retrieve');
+
 
 
 
