@@ -45,24 +45,17 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
-// Home / default page
 $router->get('/', 'UserController::create');
-
-// About page
 $router->get('/about', 'Welcome::about');
 
-// Profile page
 $router->get('/user/profile/{username}/{name}', 'UserController::profile');
-
-// User CRUD routes
 $router->get('/user/show', 'UserController::show');
-$router->match('/user/create', 'UserController::create', ['GET','POST']);
-$router->match('/user/update/{id}', 'UserController::update', ['GET','POST']);
+$router->match('/user/create', 'UserController::create', ['GET', 'POST']);
+$router->match('/user/update/{id}', 'UserController::update', ['GET', 'POST']);
 $router->get('/user/delete/{id}', 'UserController::delete');
-$router->get('/user/softdelete/{id}', 'UserController::softdelete');
-$router->get('/user/restore', 'UserController::restore');
-$router->get('/user/retrieve/{id}', 'UserController::retrieve');
-
+$router->get('/user/soft-delete/{id}', 'UserController::soft_delete'); // ✅ added slash
+$router->get('/user/restore/{id}', 'UserController::restore');
+$route['user/show'] = 'UserController/show';
 
 
 

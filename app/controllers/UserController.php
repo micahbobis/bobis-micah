@@ -3,31 +3,37 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class UserController extends Controller {
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
+        // Walang ibang logic dito para maiwasan ang redeclare
     }
 
-    // ───── Profile page ─────
     public function profile($username, $name)
     {
-        $data = [
-            'username' => $username,
-            'name'     => $name
-        ];
-        $this->call->view('user/ViewProfile', $data);
+        $data['username'] = $username;
+        $data['name'] = $name;
+        $this->call->view('ViewProfile', $data);
     }
 
-    // ───── List active users with pagination ─────
     public function show()
     {
-        $page = $this->io->get('page') ?? 1;
-        $q    = trim($this->io->get('q') ?? '');
+        // dito na lahat ng pagination code
+        $page = 1;
+        if (isset($_GET['page']) && ! empty($_GET['page'])) {
+            $page = $this->io->get('page');
+        }
+
+        $q = '';
+        if (isset($_GET['q']) && ! empty($_GET['q'])) {
+            $q = trim($this->io->get('q'));
+        }
 
         $records_per_page = 5;
-        $all = $this->UserModel->page($q, $records_per_page, $page);
 
-        $data['students']  = $all['records'];
-        $total_rows        = $all['total_rows'];
+        $all = $this->UserModel->page($q, $records_per_page, $page);
+        $data['students'] = $all['records'];
+        $total_rows = $all['total_rows'];
 
         $this->pagination->set_options([
             'first_link'     => '⏮ First',
@@ -36,21 +42,27 @@ class UserController extends Controller {
             'prev_link'      => '← Prev',
             'page_delimiter' => '&page='
         ]);
-        $this->pagination->set_theme('custom');
-        $this->pagination->initialize($total_rows, $records_per_page, $page, 'user/show?q='.$q);
+        $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
+        $this->pagination->initialize($total_rows, $records_per_page, $page,'user/show?q='.$q);
 
-        $this->call->view('user/Show', $data);
+        $data['page'] = $this->pagination->paginate();
+        $this->call->view('user/show', $data);
     }
 
-    // ───── Create user ─────
     public function create()
     {
-        if ($this->io->method() === 'post') {
+        if ($this->io->method() == 'post')
+        {
+            $last_name  = $this->io->post('last_name');
+            $first_name = $this->io->post('first_name');
+            $email      = $this->io->post('email');
+            $role       = $this->io->post('role');
+
             $data = [
-                'last_name'  => $this->io->post('last_name'),
-                'first_name' => $this->io->post('first_name'),
-                'email'      => $this->io->post('email'),
-                'Role'       => $this->io->post('role')
+                'last_name'  => $last_name,
+                'first_name' => $first_name,
+                'email'      => $email,
+                'Role'       => $role
             ];
 
             if ($this->UserModel->insert($data)) {
@@ -59,34 +71,38 @@ class UserController extends Controller {
                 echo 'Failed to insert data.';
             }
         } else {
-            $this->call->view('user/Create');
+            $this->call->view('Create');
         }
     }
 
-    // ───── Update user ─────
     public function update($id)
     {
         $data['students'] = $this->UserModel->find($id);
 
-        if ($this->io->method() === 'post') {
-            $update_data = [
-                'last_name'  => $this->io->post('last_name'),
-                'first_name' => $this->io->post('first_name'),
-                'email'      => $this->io->post('email'),
-                'Role'       => $this->io->post('role')
+        if ($this->io->method() == 'post')
+        {
+            $last_name  = $this->io->post('last_name');
+            $first_name = $this->io->post('first_name');
+            $email      = $this->io->post('email');
+            $role       = $this->io->post('role');
+
+            $data = [
+                'last_name'  => $last_name,
+                'first_name' => $first_name,
+                'email'      => $email,
+                'Role'       => $role
             ];
 
-            if ($this->UserModel->update($id, $update_data)) {
+            if ($this->UserModel->update($id, $data)) {
                 redirect(site_url('user/show'));
             } else {
                 echo 'Failed to update data.';
             }
         }
 
-        $this->call->view('user/Update', $data);
+        $this->call->view('Update', $data);
     }
 
-    // ───── Hard delete ─────
     public function delete($id)
     {
         if ($this->UserModel->delete($id)) {
@@ -96,8 +112,7 @@ class UserController extends Controller {
         }
     }
 
-    // ───── Soft delete ─────
-    public function softdelete($id)
+    public function soft_delete($id)
     {
         if ($this->UserModel->soft_delete($id)) {
             redirect(site_url('user/show'));
@@ -106,38 +121,12 @@ class UserController extends Controller {
         }
     }
 
-    // ───── List soft-deleted users ─────
-    public function restore()
-    {
-        $page = $this->io->get('page') ?? 1;
-        $q    = trim($this->io->get('q') ?? '');
-
-        $records_per_page = 5;
-        $all = $this->UserModel->restore_page($q, $records_per_page, $page);
-
-        $data['students'] = $all['records'];
-        $total_rows       = $all['total_rows'];
-
-        $this->pagination->set_options([
-            'first_link'     => '⏮ First',
-            'last_link'      => 'Last ⏭',
-            'next_link'      => 'Next →',
-            'prev_link'      => '← Prev',
-            'page_delimiter' => '&page='
-        ]);
-        $this->pagination->set_theme('custom');
-        $this->pagination->initialize($total_rows, $records_per_page, $page, 'user/restore?q='.$q);
-
-        $this->call->view('user/Restore', $data);
-    }
-
-    // ───── Restore a single soft-deleted record ─────
-    public function retrieve($id)
+    public function restore($id)
     {
         if ($this->UserModel->restore($id)) {
             redirect(site_url('user/show'));
         } else {
-            echo 'Error restoring data.';
+            echo 'Failed to restore data.';
         }
     }
 }
