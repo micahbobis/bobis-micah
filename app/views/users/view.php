@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <title>ProfileVault Suite</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<!-- Minimalist font for headers -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -17,22 +15,20 @@
     --danger:#b0413e;
 }
 
-/* Reset & base */
+/* Reset & Base */
 *{margin:0;padding:0;box-sizing:border-box;}
 body {
     font-family: 'Montserrat', sans-serif;
     background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
-    background-size: cover; /* full screen */
+    background-size: cover;
     min-height: 100vh;
-    padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    color: #2F3E2F; /* readable on bg */
+    color: var(--text-dark);
 }
 
-/* optional overlay for pastel macha tint */
+/* Optional overlay */
 body::before {
     content: '';
     position: fixed;
@@ -41,41 +37,38 @@ body::before {
     z-index: -1;
 }
 
-/* Card / Panel */
+/* Container & Card */
+.container{
+    width:100%;
+    max-width:1200px;
+}
 .card {
-    background: rgba(255, 255, 255, 0.75); /* semi-transparent off-white */
-    border-radius: 0; /* no rounded corners */
+    background: rgba(255,255,255,0.9);
+    border:2px solid var(--matcha-dark);
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
     padding: 1.5rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    backdrop-filter: blur(5px);
 }
 
 /* Title */
 h1.main-title{
     font-family:'Montserrat', serif;
-    font-size:3rem;
+    font-size:2.5rem;
     font-weight:700;
     color:var(--matcha-dark);
     margin-bottom:2rem;
+    text-align:center;
 }
 
-/* Container & card */
-.container{width:100%;max-width:1200px;}
-.card{
-    background:var(--off-white);
-    border:2px solid var(--matcha-dark);
-    /* no rounded corners */
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-}
+/* Card Header */
 .card-header{
     display:flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items:center;
-    padding:1.5rem 2rem;
+    padding:1rem 1.5rem;
     background:var(--matcha-dark);
     color:var(--off-white);
     font-family:'Montserrat',serif;
-    font-size:1.6rem;
+    font-size:1.3rem;
     font-weight:600;
     border-bottom:2px solid var(--matcha-light);
 }
@@ -89,8 +82,8 @@ h1.main-title{
 .btn-add{
     background:var(--matcha-light);
     color:var(--text-dark);
-    padding:0.5rem 1.4rem;
-    font-size:1.1rem;
+    padding:0.5rem 1rem;
+    font-size:1rem;
     font-weight:600;
     text-decoration:none;
     border:1px solid var(--matcha-dark);
@@ -98,16 +91,37 @@ h1.main-title{
 }
 .btn-add:hover{
     background:#98b598;
-    transform:translateY(-2px);
 }
 
-.btn-edit, .btn-delete{
-    padding:0.4rem 0.9rem;
-    font-weight:600;
-    display:inline-flex;
-    align-items:center;
+/* Table */
+.table-wrapper{overflow-x:auto;margin:1rem 0;}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    padding:0.8rem 1rem;
+    text-align:center;
+    border-bottom:1px solid var(--matcha-dark);
+}
+th{
+    background:var(--matcha-dark);
+    color:var(--off-white);
+    font-weight:700;
+}
+tr:nth-child(even) td{background:var(--off-white);}
+tr:nth-child(odd) td{background:#f1f4f0;}
+tr:hover td{background:var(--matcha-light);}
+
+/* Action buttons */
+td:last-child{
+    display:flex;
     justify-content:center;
-    gap:0.3rem;
+    gap:0.5rem;
+}
+.btn-edit, .btn-delete{
+    padding:0.4rem 0.8rem;
+    font-weight:600;
     text-decoration:none;
     transition:all 0.2s ease;
     cursor:pointer;
@@ -125,62 +139,7 @@ h1.main-title{
 }
 .btn-delete:hover{background:#943737;}
 
-/* Search */
-.search-form{
-    display:flex;
-    align-items:center;
-    border:1px solid var(--matcha-dark);
-}
-.search-input{
-    border:none;
-    outline:none;
-    padding:0.6rem 1rem;
-    background:var(--off-white);
-    color:var(--text-dark);
-    font-size:1rem;
-    width:180px;
-}
-.search-input::placeholder{color:#666;}
-.search-btn{
-    border:none;
-    background:var(--matcha-light);
-    color:var(--text-dark);
-    padding:0.6rem 1rem;
-    cursor:pointer;
-    transition:background 0.2s;
-}
-.search-btn:hover{background:#98b598;}
-
-/* Table */
-.table-wrapper{overflow-x:auto;margin:1.5rem;}
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-th,td{
-    padding:1rem 1.5rem;
-    text-align:center;
-    border-bottom:1px solid var(--matcha-dark);
-    vertical-align:middle;
-}
-th{
-    background:var(--matcha-dark);
-    color:var(--off-white);
-    font-weight:700;
-}
-tr:nth-child(even) td{background:var(--off-white);}
-tr:nth-child(odd) td{background:#f1f4f0;}
-tr:hover td{background:var(--matcha-light);}
-
-/* Action column */
-td:last-child{
-    display:flex;
-    justify-content:center;
-    gap:0.5rem;
-    background:inherit;
-}
-
-/* Profile image */
+/* Profile images */
 img.profile-img{
     width:50px;
     height:50px;
@@ -203,40 +162,64 @@ img.profile-img{
     display:flex;
     justify-content:center;
     gap:0.5rem;
-    margin:1.5rem 0;
+    margin:1rem 0;
     padding:0;
 }
-.pagination li a,.pagination li span{
+.pagination li a, .pagination li span{
     display:inline-block;
     padding:0.5rem 0.9rem;
     border:1px solid var(--matcha-dark);
     background:var(--matcha-light);
     color:var(--text-dark);
     text-decoration:none;
-    transition:background 0.2s;
 }
 .pagination li a:hover{background:#98b598;}
-.pagination li.active a,.pagination li span.current{
+.pagination li.active a, .pagination li span.current{
     background:var(--matcha-dark);
     color:var(--off-white);
     font-weight:700;
 }
+
+/* Search input */
+.search-form{
+    display:flex;
+    align-items:center;
+    border:1px solid var(--matcha-dark);
+}
+.search-input{
+    border:none;
+    outline:none;
+    padding:0.5rem 0.8rem;
+    background:var(--off-white);
+    color:var(--text-dark);
+    font-size:0.95rem;
+    width:150px;
+}
+.search-input::placeholder{color:#666;}
+.search-btn{
+    border:none;
+    background:var(--matcha-light);
+    color:var(--text-dark);
+    padding:0.5rem 0.8rem;
+    cursor:pointer;
+}
+.search-btn:hover{background:#98b598;}
 </style>
 </head>
 <body>
 
-<h1 class="main-title"><i class="fa-solid fa-users-gear"></i> User Management System</h1>
+<h1 class="main-title">User Management System</h1>
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <span><i class="fa-solid fa-users"></i> User Directory</span>
+            <span>User Directory</span>
             <div class="header-actions">
                 <form action="<?=site_url('users/view');?>" method="get" class="search-form">
                     <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
                     <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
-                    <button type="submit" class="search-btn"><i class="fa-solid fa-search"></i></button>
+                    <button type="submit" class="search-btn">Search</button>
                 </form>
-                <a href="<?= site_url('users/create') ?>" class="btn-add"><i class="fa-solid fa-user-plus"></i> Add User</a>
+                <a href="<?= site_url('users/create') ?>" class="btn-add">Add User</a>
             </div>
         </div>
 
@@ -257,27 +240,20 @@ img.profile-img{
                     <tr>
                         <td><?= $user['id'] ?></td>
                         <td>
-                            <?php if (!empty($user['image_path'])): ?>
-                                <img src="<?= base_url() . $user['image_path'] ?>"
-                                     alt="<?= htmlspecialchars($user['username']) ?>'s profile"
-                                     class="profile-img" />
-                            <?php else: ?>
-                                <img src="<?= base_url() ?>public/default-avatar.png"
-                                     alt="Default profile"
-                                     class="profile-img" />
-                            <?php endif; ?>
+                            <img src="<?= !empty($user['image_path']) ? base_url() . $user['image_path'] : base_url() . 'public/default-avatar.png' ?>"
+                                 alt="Profile" class="profile-img">
                         </td>
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['email'] ?></td>
                         <td>
-                            <a href="<?= site_url('users/update/'.$user['id']) ?>" class="btn-edit" title="Edit User"><i class="fa-solid fa-pen"></i></a>
-                            <a href="<?= site_url('users/delete/'.$user['id']) ?>" class="btn-delete" title="Delete User" onclick="return confirm('Are you sure?');"><i class="fa-solid fa-trash"></i></a>
+                            <a href="<?= site_url('users/update/'.$user['id']) ?>" class="btn-edit">Edit</a>
+                            <a href="<?= site_url('users/delete/'.$user['id']) ?>" class="btn-delete" onclick="return confirm('Are you sure?');">Delete</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="empty"><i class="fa-regular fa-circle-xmark"></i> No users found</td>
+                        <td colspan="5" class="empty">No users found</td>
                     </tr>
                 <?php endif; ?>
                 </tbody>

@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <title>Delete</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<!-- Minimalist font for headers -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -17,19 +15,18 @@
     --red:         #e74c3c;
 }
 
-/* --- Reset --- */
+/* Reset */
 *{margin:0;padding:0;box-sizing:border-box;}
+
 body {
     font-family: 'Montserrat', sans-serif;
-   background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
-    background-size: cover; /* full screen */
+    background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
-    padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    color: #2F3E2F; /* readable on bg */
+    color: var(--text-dark);
 }
 
 /* optional overlay for pastel macha tint */
@@ -41,16 +38,18 @@ body::before {
     z-index: -1;
 }
 
-/* Card / Panel */
+/* Container & Card */
+.container{
+    width:100%;
+    max-width:720px;
+}
 .card {
-    background: rgba(255, 255, 255, 0.75); /* semi-transparent off-white */
-    border-radius: 0; /* no rounded corners */
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 0;
     padding: 1.5rem;
     box-shadow: 0 8px 20px rgba(0,0,0,0.25);
     backdrop-filter: blur(5px);
 }
-
-.container{width:100%;max-width:720px;}
 
 .card-header{
     background: var(--matcha-dark);
@@ -62,12 +61,10 @@ body::before {
     font-size:2rem;
     font-weight:700;
     color: var(--red);
-    display:flex;
-    align-items:center;
-    gap:.75rem;
+    text-align:center;
 }
 
-/* --- Body --- */
+/* Body */
 .card-body{
     padding:2rem;
     text-align:center;
@@ -78,25 +75,20 @@ body::before {
     margin-bottom:1.5rem;
 }
 
-/* --- Buttons --- */
+/* Buttons */
 .actions{
     display:flex;
     justify-content:center;
     gap:.75rem;
 }
 .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:.5rem;
     padding:.6rem 1.4rem;
     font-weight:600;
     font-size:1rem;
-    text-decoration:none;
     cursor:pointer;
     border:none;
     transition:all .25s ease;
 }
-.btn i{pointer-events:none;}
 .btn-confirm{
     background: var(--red);
     color: var(--off-white);
@@ -121,18 +113,14 @@ body::before {
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h1><i class="fa-solid fa-trash"></i> Delete User</h1>
+            <h1>Delete User</h1>
         </div>
         <div class="card-body">
             <p>Are you sure you want to delete <strong><?= $user['username'] ?></strong> (<?= $user['email'] ?>)?</p>
             <form action="<?= site_url('users/delete/' . $user['id']) ?>" method="POST">
                 <div class="actions">
-                    <button type="submit" class="btn btn-confirm">
-                        <i class="fa-solid fa-check"></i> Yes, Delete
-                    </button>
-                    <a href="<?= site_url('users/view') ?>" class="btn btn-cancel">
-                        <i class="fa-solid fa-arrow-left"></i> Cancel
-                    </a>
+                    <button type="submit" class="btn btn-confirm">Yes, Delete</button>
+                    <a href="<?= site_url('users/view') ?>" class="btn btn-cancel">Cancel</a>
                 </div>
             </form>
         </div>

@@ -1,12 +1,9 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Update</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<!-- Minimalist font for headers -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -18,22 +15,21 @@
     --text-light:  #4a4a4a;
 }
 
-/* --- Reset --- */
+/* Reset */
 *{margin:0;padding:0;box-sizing:border-box;}
+
 body {
     font-family: 'Montserrat', sans-serif;
-   background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
-    background-size: cover; /* full screen */
+    background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
-    padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    color: #2F3E2F; /* readable on bg */
+    color: var(--text-dark);
 }
 
-/* optional overlay for pastel macha tint */
+/* Optional overlay for pastel macha tint */
 body::before {
     content: '';
     position: fixed;
@@ -42,42 +38,61 @@ body::before {
     z-index: -1;
 }
 
-/* Card / Panel */
+/* Container & Card */
+.container{
+    width:100%;
+    max-width:720px;
+}
 .card {
-    background: rgba(255, 255, 255, 0.75); /* semi-transparent off-white */
-    border-radius: 0; /* no rounded corners */
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 0;
     padding: 1.5rem;
     box-shadow: 0 8px 20px rgba(0,0,0,0.25);
     backdrop-filter: blur(5px);
 }
 
-.container{width:100%;max-width:720px;}
-
 .card-header{
     background: var(--matcha-dark);
     padding:1.5rem 2rem;
     border-bottom:2px solid var(--matcha-light);
+    text-align:center;
 }
-.title{
+.card-header h1{
     font-family:'Montserrat',serif;
     font-size:2rem;
     font-weight:700;
     color: var(--off-white);
-    display:flex;
-    align-items:center;
-    gap:.75rem;
 }
 
-/* --- Body --- */
-.card-body{padding:2rem;}
+/* Card Body */
+.card-body{
+    padding:2rem;
+    text-align:center;
+}
+.form-top{
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+    align-items:center;
+    margin-bottom:1.5rem;
+}
+.profile-preview{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--matcha-dark);
+}
+
+/* Form Fields */
 .form-group{margin-bottom:1.5rem;}
 label{
     font-weight:500;
     font-size:1rem;
     color:var(--text-dark);
-    display:flex;
-    align-items:center;
-    gap:.5rem;
+    display:block;
+    text-align:left;
+    margin-bottom:0.5rem;
 }
 input[type="text"],
 input[type="email"],
@@ -98,36 +113,21 @@ input:focus{
     box-shadow:0 0 0 3px rgba(169,193,168,0.3);
 }
 
-/* Profile preview image stays round for avatar */
-.profile-preview{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid var(--matcha-dark);
-    margin-top:.5rem;
-}
-
-/* --- Buttons --- */
+/* Buttons */
 .actions{
     display:flex;
     gap:.75rem;
-    justify-content:flex-end;
+    justify-content:center;
     margin-top:1rem;
 }
 .btn{
-    display:inline-flex;
-    align-items:center;
-    gap:.5rem;
     padding:.6rem 1.4rem;
     font-weight:600;
     font-size:1rem;
-    text-decoration:none;
     cursor:pointer;
     border:none;
     transition:all .25s ease;
 }
-.btn i{pointer-events:none;}
 .btn-primary{
     background: var(--matcha-dark);
     color: var(--off-white);
@@ -152,49 +152,32 @@ input:focus{
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h1 class="title"><i class="fa-solid fa-pen-to-square"></i> Update User</h1>
+            <h1>Update User</h1>
         </div>
         <div class="card-body">
             <form action="<?= site_url('users/update/' . $user['id']) ?>" method="POST" enctype="multipart/form-data">
+                
                 <!-- Image Section -->
-                <div class="form-top" style="display:flex; gap:2rem; align-items:center; margin-bottom:1.5rem;">
-                    <div class="profile-left" style="flex:1; text-align:center;">
-                        <?php if (!empty($user['image_path']) && $user['image_path'] !== 'default-avatar.png'): ?>
-                            <img src="<?= base_url() ?>public/<?= html_escape($user['image_path']) ?>"
-                                 alt="<?= htmlspecialchars($user['username']) ?>'s profile"
-                                 class="profile-preview" id="profilePreview">
-                        <?php else: ?>
-                            <img src="<?= base_url() ?>public/default-avatar.png"
-                                 alt="Default profile"
-                                 class="profile-preview" id="profilePreview">
-                        <?php endif; ?>
-                    </div>
-                    <div class="profile-right" style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-                        <label for="profile">
-                            <i class="fa-solid fa-image"></i> Upload New Profile Image
-                        </label>
-                        <input type="file" name="profile" id="profile" accept="image/*">
-                    </div>
+                <div class="form-top">
+                    <img src="<?= !empty($user['image_path']) && $user['image_path'] !== 'default-avatar.png' ? base_url().'public/'.html_escape($user['image_path']) : base_url().'public/default-avatar.png' ?>" 
+                         alt="Profile" class="profile-preview" id="profilePreview">
+                    <input type="file" name="profile" id="profile" accept="image/*">
                 </div>
 
                 <!-- Form Fields -->
                 <div class="form-group">
-                    <label for="username"><i class="fa-solid fa-user"></i> Username</label>
+                    <label for="username">Username</label>
                     <input type="text" name="username" id="username" value="<?= $user['username'] ?>" placeholder="Enter username" required>
                 </div>
                 <div class="form-group">
-                    <label for="email"><i class="fa-solid fa-envelope"></i> Email</label>
+                    <label for="email">Email</label>
                     <input type="email" name="email" id="email" value="<?= $user['email'] ?>" placeholder="Enter email" required>
                 </div>
 
                 <!-- Actions -->
                 <div class="actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa-solid fa-floppy-disk"></i> Save Changes
-                    </button>
-                    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">
-                        <i class="fa-solid fa-xmark"></i> Cancel
-                    </a>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">Cancel</a>
                 </div>
             </form>
 
@@ -217,4 +200,3 @@ input:focus{
 
 </body>
 </html>
-```
