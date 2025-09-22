@@ -75,33 +75,29 @@ class UserController extends Controller {
         }
     }
 
-    public function update($id)
+ public function update($id)
+{
+    $data['students'] = $this->UserModel->find($id);
+
+    if ($this->io->method() == 'post')
     {
-        $data['students'] = $this->UserModel->find($id);
+        $update_data = [
+            'last_name'  => $this->io->post('last_name'),
+            'first_name' => $this->io->post('first_name'),
+            'email'      => $this->io->post('email'),
+            'Role'       => $this->io->post('role')
+        ];
 
-        if ($this->io->method() == 'post')
-        {
-            $last_name  = $this->io->post('last_name');
-            $first_name = $this->io->post('first_name');
-            $email      = $this->io->post('email');
-            $role       = $this->io->post('role');
-
-            $data = [
-                'last_name'  => $last_name,
-                'first_name' => $first_name,
-                'email'      => $email,
-                'Role'       => $role
-            ];
-
-            if ($this->UserModel->update($id, $data)) {
-                redirect(site_url('user/show'));
-            } else {
-                echo 'Failed to update data.';
-            }
+        if ($this->UserModel->update($id, $update_data)) {
+            redirect(site_url('user/show'));
+        } else {
+            echo 'Failed to update data.';
         }
-
-        $this->call->view('Update', $data);
     }
+
+    $this->call->view('Update', $data);
+}
+
 
     public function delete($id)
     {
