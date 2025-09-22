@@ -20,15 +20,23 @@
 /* --- Reset --- */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-    font-family:'Quicksand', sans-serif;
-    background: linear-gradient(to bottom right, var(--matcha-light), var(--off-white));
+    font-family: 'Montserrat', sans-serif;
+    background: url('<?= base_url() ?>public/images/bg.png') no-repeat center center fixed;
     min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
     padding:2rem;
+     position: relative;
 }
 
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(223, 240, 210, 0.35); /* pastel macha overlay for readability */
+    z-index: -1;
+}
 /* --- Card --- */
 .container{width:100%;max-width:720px;}
 .card{
@@ -43,7 +51,7 @@ body{
     border-bottom:2px solid var(--matcha-light);
 }
 .card-header h1{
-    font-family:'Playfair Display',serif;
+    font-family:'Montserrat',serif;
     font-size:2rem;
     font-weight:700;
     color: var(--red);
