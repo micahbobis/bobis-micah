@@ -2,37 +2,28 @@
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class UserController extends Controller {
-
     public function __construct()
     {
         parent::__construct();
-        // Walang ibang logic dito para maiwasan ang redeclare
+        $this->call->model('UserModel');
     }
 
-    public function profile($username, $name)
+    public function view()
     {
-        $data['username'] = $username;
-        $data['name'] = $name;
-        $this->call->view('ViewProfile', $data);
-    }
-
-    public function show()
-    {
-        // dito na lahat ng pagination code
         $page = 1;
-        if (isset($_GET['page']) && ! empty($_GET['page'])) {
+        if(isset($_GET['page']) && !empty($_GET['page'])) {
             $page = $this->io->get('page');
         }
 
         $q = '';
-        if (isset($_GET['q']) && ! empty($_GET['q'])) {
+        if(isset($_GET['q']) && !empty($_GET['q'])) {
             $q = trim($this->io->get('q'));
         }
 
         $records_per_page = 5;
 
         $all = $this->UserModel->page($q, $records_per_page, $page);
-        $data['students'] = $all['records'];
+        $data['users'] = $all['records'];
         $total_rows = $all['total_rows'];
 
         $this->pagination->set_options([
@@ -42,87 +33,116 @@ class UserController extends Controller {
             'prev_link'      => '← Prev',
             'page_delimiter' => '&page='
         ]);
-        $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
-        $this->pagination->initialize($total_rows, $records_per_page, $page,'user/show?q='.$q);
-
+        $this->pagination->set_theme('bootstrap');
+        $this->pagination->initialize($total_rows, $records_per_page, $page, 'users/view'.'?q='.$q);
         $data['page'] = $this->pagination->paginate();
-        $this->call->view('user/show', $data);
+
+        $this->call->view('users/view', $data);
     }
 
     public function create()
     {
-        if ($this->io->method() == 'post')
-        {
-            $last_name  = $this->io->post('last_name');
-            $first_name = $this->io->post('first_name');
-            $email      = $this->io->post('email');
-            $role       = $this->io->post('role');
+        if ($this->io->method() === 'post') {
+            $username = $this->io->post('username');
+            $email = $this->io->post('email');
+            $imagePath = 'public/default-avatar.png'; // default
+
+            // Handle file upload
+            if (!empty($_FILES['profile']['name'])) {
+                $this->call->library('upload', $_FILES["profile"]);
+                $this->upload
+                    ->set_dir('public/uploads/') // save inside public so it's accessible
+                    ->allowed_extensions(['jpg','jpeg','png'])
+                    ->allowed_mimes(['image/jpeg','image/png'])
+                    ->max_size(5)   // 5MB max
+                    ->is_image()
+                    ->encrypt_name();
+
+                if ($this->upload->do_upload()) {
+                    $imagePath = 'public/uploads/' . $this->upload->get_filename();
+                } else {
+                    echo implode('<br>', $this->upload->get_errors());
+                    return;
+                }
+            }
 
             $data = [
-                'last_name'  => $last_name,
-                'first_name' => $first_name,
+                'username'   => $username,
                 'email'      => $email,
-                'Role'       => $role
+                'image_path' => $imagePath
             ];
 
-            if ($this->UserModel->insert($data)) {
-                redirect(site_url('user/show'));
-            } else {
-                echo 'Failed to insert data.';
+            try {
+                $this->UserModel->insert($data);
+                redirect('users/view');
+            } catch (Exception $e) {
+                echo 'Something went wrong while creating user: ' . htmlspecialchars($e->getMessage());
             }
         } else {
-            $this->call->view('Create');
+            $this->call->view('users/create');
         }
     }
 
- public function update($id)
-{
-    $data['students'] = $this->UserModel->find($id);
-
-    if ($this->io->method() == 'post')
+    public function update($id)
     {
-        $update_data = [
-            'last_name'  => $this->io->post('last_name'),
-            'first_name' => $this->io->post('first_name'),
-            'email'      => $this->io->post('email'),
-            'Role'       => $this->io->post('role')
-        ];
+        $data['user'] = $this->UserModel->find($id);
 
-        if ($this->UserModel->update($id, $update_data)) {
-            redirect(site_url('user/show'));
+        if ($this->io->method() === 'post') {
+            $username = $this->io->post('username');
+            $email = $this->io->post('email');
+            $imagePath = $data['user']['image_path']; // keep current image by default
+
+            if (!empty($_FILES['profile']['name'])) {
+                $this->call->library('upload', $_FILES["profile"]);
+                $this->upload
+                    ->set_dir('public/uploads')
+                    ->allowed_extensions(['jpg','jpeg','png'])
+                    ->allowed_mimes(['image/jpeg','image/png'])
+                    ->max_size(5)
+                    ->is_image()
+                    ->encrypt_name();
+
+                if ($this->upload->do_upload()) {
+                    $imagePath = 'public/uploads/' . $this->upload->get_filename();
+                } else {
+                    echo implode('<br>', $this->upload->get_errors());
+                    return;
+                }
+            }
+
+            $updateData = [
+                'username'   => $username,
+                'email'      => $email,
+                'image_path' => $imagePath
+            ];
+
+            try {
+                $this->UserModel->update($id, $updateData);
+                redirect('users/view');
+            } catch (Exception $e) {
+                echo 'Something went wrong while updating user: ' . htmlspecialchars($e->getMessage());
+            }
         } else {
-            echo 'Failed to update data.';
+            $data['user'] = $this->UserModel->find($id);
+            $this->call->view('users/update', $data);
         }
     }
-
-    $this->call->view('Update', $data);
-}
-
 
     public function delete($id)
     {
+        $user = $this->UserModel->find($id);
+        
+        // Optional: delete the uploaded file
+        if($user && isset($user['image_path']) && $user['image_path'] !== 'public/default-avatar.png') {
+            if(file_exists($user['image_path'])) {
+                unlink($user['image_path']);
+            }
+        }
+
         if ($this->UserModel->delete($id)) {
-            redirect(site_url('user/show'));
+            redirect('users/view');
         } else {
-            echo 'Failed to delete data.';
-        }
-    }
-
-    public function soft_delete($id)
-    {
-        if ($this->UserModel->soft_delete($id)) {
-            redirect(site_url('user/show'));
-        } else {
-            echo 'Failed to delete data.';
-        }
-    }
-
-    public function restore($id)
-    {
-        if ($this->UserModel->restore($id)) {
-            redirect(site_url('user/show'));
-        } else {
-            echo 'Failed to restore data.';
+            echo 'Something went wrong while deleting user';
         }
     }
 }
