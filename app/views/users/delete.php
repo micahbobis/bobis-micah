@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Delete</title>
+<title>Delete User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -10,17 +10,18 @@
 :root{
     --matcha-dark: #3f5c4b;
     --matcha-light: #a9c1a8;
-    --off-white:   #f9f9f6;
-    --text-dark:   #2e2e2e;
-    --red:         #e74c3c;
+    --off-white: #f9f9f6;
+    --text-dark: #2e2e2e;
+    --red: #e74c3c;
 }
 
 /* Reset */
 *{margin:0;padding:0;box-sizing:border-box;}
 
+/* Body & Background */
 body {
     font-family: 'Montserrat', sans-serif;
-    background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
+    background: url('public/images/bg.png') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
     display: flex;
@@ -29,39 +30,39 @@ body {
     color: var(--text-dark);
 }
 
-/* optional overlay for pastel macha tint */
+/* Optional overlay for pastel tint */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(223, 240, 210, 0.25);
+    background: rgba(223,240,210,0.25); /* soft pastel tint */
     z-index: -1;
+   /* optional blur for background */
 }
+
 
 /* Container & Card */
-.container{
-    width:100%;
-    max-width:720px;
-}
 .card {
-    background: rgba(255, 255, 255, 0.75);
-    border-radius: 0;
-    padding: 1.5rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    backdrop-filter: blur(5px);
+    background: rgba(255,255,255,0.9);
+    border: 2px solid var(--matcha-dark);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    padding: 2rem;
+    width: 90%;          /* add this */
+    max-width: 900px;    /* optional */
+    margin: auto;        /* centers card if parent allows */
 }
 
+/* Header */
 .card-header{
     background: var(--matcha-dark);
     padding:1.5rem 2rem;
     border-bottom:2px solid var(--matcha-light);
+    text-align: center;
 }
 .card-header h1{
-    font-family:'Montserrat',serif;
     font-size:2rem;
     font-weight:700;
     color: var(--red);
-    text-align:center;
 }
 
 /* Body */
@@ -79,7 +80,7 @@ body::before {
 .actions{
     display:flex;
     justify-content:center;
-    gap:.75rem;
+    gap:1rem;
 }
 .btn{
     padding:.6rem 1.4rem;

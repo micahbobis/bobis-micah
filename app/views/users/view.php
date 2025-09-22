@@ -15,11 +15,14 @@
     --danger:#b0413e;
 }
 
-/* Reset & Base */
+/* Reset */
 *{margin:0;padding:0;box-sizing:border-box;}
+
+/* Body & Background */
 body {
     font-family: 'Montserrat', sans-serif;
-    background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
+   background: url('public/images/bg.png') no-repeat center center fixed;
+
     background-size: cover;
     min-height: 100vh;
     display: flex;
@@ -30,88 +33,65 @@ body {
 
 /* Optional overlay */
 body::before {
-    content: '';
+    content:'';
     position: fixed;
     inset: 0;
-    background: rgba(223, 240, 210, 0.25);
+    background: rgba(223,240,210,0.25);
     z-index: -1;
 }
 
-/* Container & Card */
-.container{
-    width:100%;
-    max-width:1200px;
-}
+/* Card container */
 .card {
     background: rgba(255,255,255,0.9);
-    border:2px solid var(--matcha-dark);
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-    padding: 1.5rem;
+    border: 2px solid var(--matcha-dark);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    padding: 2rem;
+    width: 90%;          /* add this */
+    max-width: 900px;    /* optional */
+    margin: auto;        /* centers card if parent allows */
 }
+
 
 /* Title */
 h1.main-title{
-    font-family:'Montserrat', serif;
-    font-size:2.5rem;
-    font-weight:700;
-    color:var(--matcha-dark);
-    margin-bottom:2rem;
-    text-align:center;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--matcha-dark);
+    margin-bottom: 2rem;
 }
 
-/* Card Header */
-.card-header{
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    padding:1rem 1.5rem;
-    background:var(--matcha-dark);
-    color:var(--off-white);
-    font-family:'Montserrat',serif;
-    font-size:1.3rem;
-    font-weight:600;
-    border-bottom:2px solid var(--matcha-light);
-}
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:1rem;
-}
-
-/* Buttons */
-.btn-add{
-    background:var(--matcha-light);
-    color:var(--text-dark);
-    padding:0.5rem 1rem;
-    font-size:1rem;
-    font-weight:600;
-    text-decoration:none;
-    border:1px solid var(--matcha-dark);
-    transition:all .25s ease;
-}
-.btn-add:hover{
-    background:#98b598;
+/* Table wrapper */
+.table-wrapper{
+    overflow-x:auto;
 }
 
 /* Table */
-.table-wrapper{overflow-x:auto;margin:1rem 0;}
 table{
     width:100%;
     border-collapse:collapse;
 }
-th,td{
-    padding:0.8rem 1rem;
-    text-align:center;
+th, td{
+    padding: 0.8rem 1rem;
+    text-align: center;
     border-bottom:1px solid var(--matcha-dark);
 }
 th{
-    background:var(--matcha-dark);
-    color:var(--off-white);
-    font-weight:700;
+    background: var(--matcha-dark);
+    color: var(--off-white);
+    font-weight: 700;
 }
-tr:nth-child(even) td{background:var(--off-white);}
-tr:nth-child(odd) td{background:#f1f4f0;}
-tr:hover td{background:var(--matcha-light);}
+tr:nth-child(even) td{background: var(--off-white);}
+tr:nth-child(odd) td{background: #f1f4f0;}
+tr:hover td{background: var(--matcha-light);}
+
+/* Profile image */
+img.profile-img{
+    width:50px;
+    height:50px;
+    object-fit: cover;
+    border:2px solid var(--matcha-dark);
+}
 
 /* Action buttons */
 td:last-child{
@@ -123,29 +103,21 @@ td:last-child{
     padding:0.4rem 0.8rem;
     font-weight:600;
     text-decoration:none;
-    transition:all 0.2s ease;
     cursor:pointer;
     border:1px solid var(--matcha-dark);
+    transition: all 0.2s ease;
 }
 .btn-edit{
-    background:var(--matcha-light);
-    color:var(--text-dark);
+    background: var(--matcha-light);
+    color: var(--text-dark);
 }
 .btn-edit:hover{background:#98b598;}
 .btn-delete{
-    background:var(--danger);
-    color:var(--off-white);
+    background: var(--danger);
+    color: var(--off-white);
     border:1px solid #943737;
 }
 .btn-delete:hover{background:#943737;}
-
-/* Profile images */
-img.profile-img{
-    width:50px;
-    height:50px;
-    object-fit:cover;
-    border:2px solid var(--matcha-dark);
-}
 
 /* Empty state */
 .empty{
@@ -153,7 +125,7 @@ img.profile-img{
     text-align:center;
     font-style:italic;
     background:#f1f4f0;
-    color:var(--text-dark);
+    color: var(--text-dark);
 }
 
 /* Pagination */
@@ -169,59 +141,30 @@ img.profile-img{
     display:inline-block;
     padding:0.5rem 0.9rem;
     border:1px solid var(--matcha-dark);
-    background:var(--matcha-light);
-    color:var(--text-dark);
+    background: var(--matcha-light);
+    color: var(--text-dark);
     text-decoration:none;
 }
 .pagination li a:hover{background:#98b598;}
 .pagination li.active a, .pagination li span.current{
-    background:var(--matcha-dark);
-    color:var(--off-white);
+    background: var(--matcha-dark);
+    color: var(--off-white);
     font-weight:700;
 }
-
-/* Search input */
-.search-form{
-    display:flex;
-    align-items:center;
-    border:1px solid var(--matcha-dark);
-}
-.search-input{
-    border:none;
-    outline:none;
-    padding:0.5rem 0.8rem;
-    background:var(--off-white);
-    color:var(--text-dark);
-    font-size:0.95rem;
-    width:150px;
-}
-.search-input::placeholder{color:#666;}
-.search-btn{
-    border:none;
-    background:var(--matcha-light);
-    color:var(--text-dark);
-    padding:0.5rem 0.8rem;
-    cursor:pointer;
-}
-.search-btn:hover{background:#98b598;}
 </style>
 </head>
 <body>
 
-<h1 class="main-title">User Management System</h1>
 <div class="container">
     <div class="card">
-        <div class="card-header">
-            <span>User Directory</span>
-            <div class="header-actions">
-                <form action="<?=site_url('users/view');?>" method="get" class="search-form">
-                    <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
-                    <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
-                    <button type="submit" class="search-btn">Search</button>
-                </form>
-                <a href="<?= site_url('users/create') ?>" class="btn-add">Add User</a>
-            </div>
-        </div>
+        <h1 class="main-title">ProfileVault Suite</h1>
+
+        <div style="text-align: right; margin-bottom: 1rem;">
+        <a href="<?= site_url('users/create') ?>" 
+           style="padding:0.5rem 1rem; background: var(--matcha-dark); color: var(--off-white); text-decoration:none; font-weight:600; border-radius:4px;">
+           + Add Account
+        </a>
+    </div>
 
         <div class="table-wrapper">
             <table>
@@ -253,7 +196,7 @@ img.profile-img{
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="empty">No users found</td>
+                        <td colspan="5" class="empty">No account found</td>
                     </tr>
                 <?php endif; ?>
                 </tbody>

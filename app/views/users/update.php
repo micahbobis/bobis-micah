@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Update</title>
+<title>Update User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -10,17 +10,18 @@
 :root{
     --matcha-dark: #3f5c4b;
     --matcha-light: #a9c1a8;
-    --off-white:   #f9f9f6;
-    --text-dark:   #2e2e2e;
-    --text-light:  #4a4a4a;
+    --off-white: #f9f9f6;
+    --text-dark: #2e2e2e;
+    --text-light: #4a4a4a;
 }
 
 /* Reset */
 *{margin:0;padding:0;box-sizing:border-box;}
 
+/* Body & Background */
 body {
     font-family: 'Montserrat', sans-serif;
-    background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
+    background: url('public/images/bg.png') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
     display: flex;
@@ -29,28 +30,29 @@ body {
     color: var(--text-dark);
 }
 
-/* Optional overlay for pastel macha tint */
+/* Optional overlay */
 body::before {
-    content: '';
+    content:'';
     position: fixed;
     inset: 0;
-    background: rgba(223, 240, 210, 0.25);
+    background: rgba(223,240,210,0.25); /* soft pastel overlay */
     z-index: -1;
+  /* optional blur effect for background */
 }
 
 /* Container & Card */
-.container{
-    width:100%;
-    max-width:720px;
-}
 .card {
-    background: rgba(255, 255, 255, 0.75);
-    border-radius: 0;
-    padding: 1.5rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    backdrop-filter: blur(5px);
+    background: rgba(255,255,255,0.9);
+    border: 2px solid var(--matcha-dark);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    padding: 2rem;
+    width: 90%;          /* add this */
+    max-width: 900px;    /* optional */
+    margin: auto;        /* centers card if parent allows */
 }
 
+
+/* Header */
 .card-header{
     background: var(--matcha-dark);
     padding:1.5rem 2rem;
@@ -58,13 +60,12 @@ body::before {
     text-align:center;
 }
 .card-header h1{
-    font-family:'Montserrat',serif;
     font-size:2rem;
     font-weight:700;
     color: var(--off-white);
 }
 
-/* Card Body */
+/* Body */
 .card-body{
     padding:2rem;
     text-align:center;
@@ -72,8 +73,8 @@ body::before {
 .form-top{
     display:flex;
     flex-direction:column;
-    gap:1.5rem;
     align-items:center;
+    gap:1.5rem;
     margin-bottom:1.5rem;
 }
 .profile-preview{
@@ -84,14 +85,16 @@ body::before {
     border:2px solid var(--matcha-dark);
 }
 
-/* Form Fields */
-.form-group{margin-bottom:1.5rem;}
+/* Form fields */
+.form-group{
+    margin-bottom:1.5rem;
+    text-align:left;
+}
 label{
     font-weight:500;
     font-size:1rem;
     color:var(--text-dark);
     display:block;
-    text-align:left;
     margin-bottom:0.5rem;
 }
 input[type="text"],
@@ -116,7 +119,7 @@ input:focus{
 /* Buttons */
 .actions{
     display:flex;
-    gap:.75rem;
+    gap:1rem;
     justify-content:center;
     margin-top:1rem;
 }
@@ -157,7 +160,7 @@ input:focus{
         <div class="card-body">
             <form action="<?= site_url('users/update/' . $user['id']) ?>" method="POST" enctype="multipart/form-data">
                 
-                <!-- Image Section -->
+                <!-- Profile Section -->
                 <div class="form-top">
                     <img src="<?= !empty($user['image_path']) && $user['image_path'] !== 'default-avatar.png' ? base_url().'public/'.html_escape($user['image_path']) : base_url().'public/default-avatar.png' ?>" 
                          alt="Profile" class="profile-preview" id="profilePreview">
@@ -182,7 +185,7 @@ input:focus{
             </form>
 
             <script>
-            // Preview new image before upload
+            // Preview selected image before upload
             const profileInput = document.getElementById('profile');
             const previewImg = document.getElementById('profilePreview');
             profileInput.addEventListener('change', function() {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Create</title>
+<title>Create Profile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -10,17 +10,19 @@
 :root{
     --matcha-dark: #3f5c4b;
     --matcha-light: #a9c1a8;
-    --off-white:   #f9f9f6;
-    --text-dark:   #2e2e2e;
-    --text-light:  #4a4a4a;
+    --off-white: #f9f9f6;
+    --text-dark: #2e2e2e;
+    --text-light: #4a4a4a;
 }
 
 /* Reset */
 *{margin:0;padding:0;box-sizing:border-box;}
 
+/* Body & Background */
 body {
     font-family: 'Montserrat', sans-serif;
-    background: url('<?= base_url() . "public/images/bg.png" ?>') no-repeat center center fixed;
+    background: linear-gradient(rgba(223,240,210,0.25), rgba(223,240,210,0.25)),
+                background: url('/public/images/bg.png') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
     display: flex;
@@ -29,38 +31,72 @@ body {
     color: var(--text-dark);
 }
 
-/* Container & Card */
-.container{
-    width:100%;
-    max-width:720px;
-}
-.card {
-    background: rgba(255, 255, 255, 0.75);
-    border-radius: 0;
-    padding: 1.5rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-    backdrop-filter: blur(5px);
+/* Optional overlay */
+body::before {
+    content:'';
+    position: fixed;
+    inset: 0;
+    background: rgba(223,240,210,0.25);
+    z-index: -1;
 }
 
+/* Card container */
+.card {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid var(--matcha-dark);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    padding: 2rem;
+    width: 90%;          /* add this */
+    max-width: 900px;    /* optional */
+    margin: auto;        /* centers card if parent allows */
+}
+
+
+/* Header */
 .card-header{
     background: var(--matcha-dark);
     color: var(--off-white);
-    padding:1.5rem 2rem;
-    border-bottom:2px solid var(--matcha-light);
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid var(--matcha-light);
+    text-align: center;
 }
 .title{
-    font-family:'Montserrat',serif;
     font-size:2rem;
     font-weight:700;
 }
 
 /* Body */
-.card-body{padding:2rem;}
+.card-body{
+    padding: 2rem;
+}
+.form-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centers horizontally */
+    justify-content: center; /* centers vertically if needed */
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%; /* ensure it takes full card width */
+}
+
+.profile-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--matcha-dark);
+    display: block;
+    margin: 0 auto; /* centers horizontally */
+}
+
+/* Form fields */
 .form-group{margin-bottom:1.5rem;}
 label{
     font-weight:500;
     font-size:1rem;
     color:var(--text-dark);
+    display:block;
+    margin-bottom:0.5rem;
 }
 input[type="text"],
 input[type="email"],
@@ -70,7 +106,6 @@ input[type="file"]{
     border:1px solid var(--matcha-dark);
     background: var(--off-white);
     color: var(--text-dark);
-    font-family:'Montserrat',sans-serif;
     font-size:1rem;
     transition: all .2s ease;
 }
@@ -84,8 +119,8 @@ input:focus{
 /* Buttons */
 .actions{
     display:flex;
-    gap:.75rem;
-    justify-content:flex-end;
+    gap:1rem;
+    justify-content:center;
     margin-top:1rem;
 }
 .btn{
@@ -113,26 +148,6 @@ input:focus{
     background: #98b598;
     transform:translateY(-2px);
 }
-
-/* Profile image */
-.profile-preview{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-    margin:0 auto;
-    margin-bottom:1rem;
-}
-
-/* Center form sections */
-.form-top{
-    display:flex;
-    flex-direction:column;
-    gap:1.5rem;
-    align-items:center;
-    margin-bottom:1.5rem;
-}
 </style>
 </head>
 <body>
@@ -140,7 +155,7 @@ input:focus{
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h1 class="title">Create User</h1>
+            <h1 class="title">Create Profile</h1>
         </div>
         <div class="card-body">
             <form action="<?= site_url('users/create') ?>" method="POST" enctype="multipart/form-data">
