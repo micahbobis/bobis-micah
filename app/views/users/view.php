@@ -46,8 +46,8 @@ body::before {
     border: 2px solid var(--matcha-dark);
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     padding: 2rem;
-    width: 90%;          /* add this */
-    max-width: 900px;    /* optional */
+    width: 95%;          /* add this */
+    max-width:1200px;    /* optional */
     margin: auto;        /* centers card if parent allows */
 }
 
@@ -67,14 +67,15 @@ h1.main-title{
 }
 
 /* Table */
-table{
-    width:100%;
-    border-collapse:collapse;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;  /* allows columns to adjust */
 }
-th, td{
-    padding: 0.8rem 1rem;
-    text-align: center;
-    border-bottom:1px solid var(--matcha-dark);
+
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
 }
 th{
     background: var(--matcha-dark);
@@ -87,12 +88,12 @@ tr:hover td{background: var(--matcha-light);}
 
 /* Profile image */
 img.profile-img{
-    width:50px;
-    height:50px;
+       width: 80px;              /* adjust bigger if needed */
+    height: 80px;
     object-fit: cover;
-    border:2px solid var(--matcha-dark);
+    border-radius: 50%;       /* circular */
+    border: 2px solid #3f5c4b; /* matcha dark border */
 }
-
 /* Action buttons */
 td:last-child{
     display:flex;
