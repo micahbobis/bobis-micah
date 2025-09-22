@@ -6,7 +6,7 @@ class UserController extends Controller {
     {
         parent::__construct();
         $this->call->model('UserModel');
-        $this->load->helper('url');
+        
 
     }
 
