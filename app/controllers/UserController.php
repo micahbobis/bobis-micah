@@ -1,11 +1,6 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
-/**
- * Controller: UserController
- * 
- * Reformatted to match CrudController style.
- */
 class UserController extends Controller {
 
     public function __construct()
@@ -47,11 +42,11 @@ class UserController extends Controller {
             'prev_link'      => '← Prev',
             'page_delimiter' => '&page='
         ]);
-        $this->pagination->set_theme('custom'); // or bootstrap, tailwind
+        $this->pagination->set_theme('custom');
         $this->pagination->initialize($total_rows, $records_per_page, $page, 'user/show?q='.$q);
 
-        $data['page'] = $this->pagination->paginate();
-        $this->call->view('user/show', $data);
+        // Adjusted to match your actual view filename
+        $this->call->view('user/Showdata', $data);
     }
 
     // Create user
@@ -71,7 +66,7 @@ class UserController extends Controller {
                 echo 'Failed to insert data.';
             }
         } else {
-            $this->call->view('Create');
+            $this->call->view('Create'); // matches Create.php
         }
     }
 
@@ -95,7 +90,7 @@ class UserController extends Controller {
             }
         }
 
-        $this->call->view('Update', $data);
+        $this->call->view('Update', $data); // matches Update.php
     }
 
     // Hard delete
@@ -133,7 +128,6 @@ class UserController extends Controller {
 
         $records_per_page = 5;
 
-        // Call a model function for restore listing
         $all = $this->UserModel->restore_page($q, $records_per_page, $page);
         $data['students'] = $all['records'];
         $total_rows = $all['total_rows'];
@@ -145,11 +139,11 @@ class UserController extends Controller {
             'prev_link'      => '← Prev',
             'page_delimiter' => '&page='
         ]);
-        $this->pagination->set_theme('custom'); // or bootstrap, tailwind
+        $this->pagination->set_theme('custom');
         $this->pagination->initialize($total_rows, $records_per_page, $page, 'user/restore?q='.$q);
 
-        $data['page'] = $this->pagination->paginate();
-        $this->call->view('user/restore', $data);
+        // Adjusted to match your actual view filename
+        $this->call->view('user/Restore', $data);
     }
 
     // Restore a deleted record
