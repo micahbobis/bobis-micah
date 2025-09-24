@@ -47,7 +47,7 @@ class UserController extends Controller {
         if ($this->io->method() === 'post') {
             $username = $this->io->post('username');
             $email = $this->io->post('email');
-            $imagePath = 'public/images/mecz.jpg'; // default
+            $imagePath = 'uploads/default-avatar.png'; // default
 
             // Handle file upload
             if (!empty($_FILES['profile']['name'])) {
@@ -61,7 +61,7 @@ class UserController extends Controller {
                     ->encrypt_name();
 
                 if ($this->upload->do_upload()) {
-                    $imagePath = 'public/uploads/' . $this->upload->get_filename();
+                    $imagePath = 'uploads/' . $this->upload->get_filename();
                 } else {
                     echo implode('<br>', $this->upload->get_errors());
                     return;
@@ -105,7 +105,7 @@ class UserController extends Controller {
                     ->encrypt_name();
 
                 if ($this->upload->do_upload()) {
-                    $imagePath = 'public/uploads/' . $this->upload->get_filename();
+                    $imagePath = 'uploads/' . $this->upload->get_filename();
                 } else {
                     echo implode('<br>', $this->upload->get_errors());
                     return;
@@ -135,9 +135,10 @@ class UserController extends Controller {
         $user = $this->UserModel->find($id);
         
         // Optional: delete the uploaded file
-        if($user && isset($user['image_path']) && $user['image_path'] !== 'public/default-avatar.png') {
-            if(file_exists($user['image_path'])) {
-                unlink($user['image_path']);
+        if($user && isset($user['image_path']) && $user['image_path'] !== 'uploads/default-avatar.png') {
+             $fullPath = __DIR__ . '/../../public/' . $user['image_path']; 
+             if (is_file($fullPath)) {
+             unlink($fullPath);
             }
         }
 
