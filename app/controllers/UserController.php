@@ -54,8 +54,8 @@ class UserController extends Controller {
                 $this->call->library('upload', $_FILES["profile"]);
                 $this->upload
                     ->set_dir('public/uploads/') // save inside public so it's accessible
-                    ->allowed_extensions(['jpg','jpeg','png'])
-                    ->allowed_mimes(['image/jpeg','image/png'])
+                    ->allowed_extensions(['jpg','jpeg','png','webp'])
+                    ->allowed_mimes(['image/jpeg','image/png','image/pjpeg','image/webp'])
                     ->max_size(5)   // 5MB max
                     ->is_image()
                     ->encrypt_name();
