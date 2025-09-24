@@ -184,8 +184,9 @@ td:last-child{
                     <tr>
                         <td><?= $user['id'] ?></td>
                         <td>
-                            <img src="<?= !empty($user['image_path']) ? base_url() . $user['image_path'] : base_url() . 'uploads/default-avatar.png' ?>"
-                                 alt="Profile" class="profile-img">
+                            <img src="<?= base_url() . 'public/' . $user['image_path'] ?>" 
+                             alt="Profile" class="profile-img">
+
                         </td>
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['email'] ?></td>
