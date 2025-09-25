@@ -161,7 +161,17 @@ td:last-child{
 <div class="container">
     <div class="card">
         <h1 class="main-title">ProfileVault Suite</h1>
-
+        <div class="card-header">
+            <span><i class="fa-solid fa-users"></i> User Directory</span>
+        <div class="header-actions">
+            <form action="<?=site_url('users/view');?>" method="get" class="search-form">
+                <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
+                <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
+                <button type="submit" class="search-btn"><i class="fa-solid fa-search"></i></button>
+            </form>
+        
+        </div>  
+       </div>
         <div style="text-align: right; margin-bottom: 1rem;">
         <a href="<?= site_url('users/create') ?>" 
            style="padding:0.5rem 1rem; background: var(--matcha-dark); color: var(--off-white); text-decoration:none; font-weight:600; border-radius:4px;">
