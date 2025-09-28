@@ -169,7 +169,7 @@ td:last-child{
                 <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
                 <button type="submit" class="search-btn"><i class="fa-solid fa-search"></i></button>
             </form>
-        
+            <a href="<?= site_url('users/create') ?>" class="btn-add"><i class="fa-solid fa-user-plus"></i></a>
         </div>  
        </div>
         <div style="text-align: right; margin-bottom: 1rem;">
