@@ -154,6 +154,60 @@ td:last-child{
     color: var(--off-white);
     font-weight:700;
 }
+
+.header-actions{
+  display:flex;
+    justify-content: space-between; /* ✅ search sa kaliwa, button sa kanan */
+  align-items: center;   
+    margin-bottom: 1.5rem; 
+  margin-top:0.5rem;
+}
+
+.search-form{
+  display:flex;
+  align-items:center;
+  border:2px solid var(--matcha-dark);
+  border-radius:4px;
+  background:var(--off-white);
+  height:40px;          /* ✅ match height */
+}
+
+.search-input{
+  border:none;
+  outline:none;
+  padding:0 0.75rem;
+  height:100%;          /* ✅ match height */
+  background:transparent;
+  color:var(--matcha-dark);
+}
+
+.search-btn{
+  background:var(--matcha-dark);
+  color:var(--off-white);
+  border:none;
+  padding:0 0.9rem;
+  height:100%;          /* ✅ match height */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  border-top-right-radius:4px;
+  border-bottom-right-radius:4px;
+}
+
+.btn-add{
+  padding:0.5rem 1rem;
+  background:var(--matcha-dark);
+  color:var(--off-white);
+  text-decoration:none;
+  font-weight:600;
+  border-radius:4px;
+  height:40px;          /* ✅ same as search form */
+  display:flex;
+  align-items:center;   /* center text vertically */
+  justify-content:center;
+}
+
 </style>
 </head>
 <body>
@@ -162,22 +216,15 @@ td:last-child{
     <div class="card">
         <h1 class="main-title">ProfileVault Suite</h1>
         <div class="card-header">
-            <span><i class="fa-solid fa-users"></i> User Directory</span>
+        
         <div class="header-actions">
             <form action="<?=site_url('users/view');?>" method="get" class="search-form">
                 <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
                 <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
                 <button type="submit" class="search-btn"><i class="fa-solid fa-search"></i></button>
             </form>
-            <a href="<?= site_url('users/create') ?>" class="btn-add"><i class="fa-solid fa-user-plus"></i></a>
-        </div>  
-       </div>
-        <div style="text-align: right; margin-bottom: 1rem;">
-        <a href="<?= site_url('users/create') ?>" 
-           style="padding:0.5rem 1rem; background: var(--matcha-dark); color: var(--off-white); text-decoration:none; font-weight:600; border-radius:4px;">
-           + Add Account
-        </a>
-    </div>
+         <a href="<?= site_url('users/create') ?>" class="btn-add">+ Add Account</a>
+</div>
 
         <div class="table-wrapper">
             <table>
@@ -210,7 +257,7 @@ td:last-child{
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="empty">No account found</td>
+                        <td colspan="5" class="empty">No account found!</td>
                     </tr>
                 <?php endif; ?>
                 </tbody>
