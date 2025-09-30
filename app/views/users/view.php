@@ -267,12 +267,12 @@ td:last-child{
                         </td>
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['email'] ?></td>
-                        <?php if ($role === 'admin'): ?>
+                        <?php if($_SESSION['role'] === 'admin'): ?>
                         <td>
                             <a href="<?= site_url('users/update/'.$user['id']) ?>" class="btn-edit">Edit</a>
-                            <form action="<?= site_url('users/delete/'.$user['id']) ?>" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');"></form>
-                            <a href="<?= site_url('users/delete/'.$user['id']) ?>" class="btn-delete" onclick="return confirm('Are you sure?');">Delete</a>
-                        </form>
+                            <form action="<?= site_url('users/delete/'.$user['id']) ?>" method="post" onsubmit="return confirm('Are you sure ');">
+                            <a href="<?= site_url('users/delete/'.$user['id']) ?>" class="btn-delete" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a></form>
+                        
                         </td>
                         <?php endif; ?>
                     </tr>
