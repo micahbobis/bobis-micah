@@ -13,7 +13,7 @@ class UserController extends Controller {
             redirect('auth/login');
         }
          $role = $_SESSION['role'] ?? 'user';
-    $current_method = $this->router->method;
+         $current_method = $this->method;
 
     if ($role !== 'admin' && in_array($current_method, ['create','update','delete'])) {
         redirect('users/view'); // user can’t modify users
