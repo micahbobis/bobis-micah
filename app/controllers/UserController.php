@@ -6,24 +6,30 @@ class UserController extends Controller {
 {
     parent::__construct();
     $this->call->model('UserModel');
-    $this->call->library('auth'); // 🔹 load Auth library
+    $this->call->library('auth');
 
-    // Check if user is logged in
+    // ensure session + login
     if (!$this->auth->is_logged_in()) {
         redirect('auth/login');
     }
- 
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
-    $current_method = $trace[1]['function'] ?? null;
 
     $role = $_SESSION['role'] ?? 'user';
 
-    
+    // safer debug_backtrace usage (fallbacks) to get called method name
+    $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 3);
+    $current_method = null;
+    if (isset($trace[1]['function'])) {
+        $current_method = $trace[1]['function'];
+    } elseif (isset($trace[2]['function'])) {
+        $current_method = $trace[2]['function'];
+    }
 
-    if ($role !== 'admin' && in_array($current_method, ['create','update','delete'])) {
-        redirect('users/view'); // user can’t modify users
+    // restrict create/update/delete for non-admins
+    if ($current_method && $role !== 'admin' && in_array($current_method, ['create','update','delete'])) {
+        redirect('users/view');
     }
 }
+
 
 
     public function view(
@@ -103,68 +109,80 @@ class UserController extends Controller {
     }
 
     public function update($id)
-    {
-        $data['user'] = $this->UserModel->find($id);
+{
+    $role = $_SESSION['role'] ?? 'user';
+    $current_user_id = $_SESSION['user_id'] ?? null;
 
-        if ($this->io->method() === 'post') {
-            $username = $this->io->post('username');
-            $email = $this->io->post('email');
-            $imagePath = $data['user']['image_path']; // keep current image by default
-
-            if (!empty($_FILES['profile']['name'])) {
-                $this->call->library('upload', $_FILES["profile"]);
-                $this->upload
-                    ->set_dir('public/uploads')
-                    ->allowed_extensions(['jpg','jpeg','png'])
-                    ->allowed_mimes(['image/jpeg','image/png'])
-                    ->max_size(5)
-                    ->is_image()
-                    ->encrypt_name();
-
-                if ($this->upload->do_upload()) {
-                    $imagePath = 'uploads/' . $this->upload->get_filename();
-                } else {
-                    echo implode('<br>', $this->upload->get_errors());
-                    return;
-                }
-            }
-
-            $updateData = [
-                'username'   => $username,
-                'email'      => $email,
-                'image_path' => $imagePath
-            ];
-
-            try {
-                $this->UserModel->update($id, $updateData);
-                redirect('users/view');
-            } catch (Exception $e) {
-                echo 'Something went wrong while updating user: ' . htmlspecialchars($e->getMessage());
-            }
-        } else {
-            $data['user'] = $this->UserModel->find($id);
-            $this->call->view('users/update', $data);
-        }
+    // Non-admins can only update their own account
+    if ($role !== 'admin' && $current_user_id != $id) {
+        redirect('users/view');
     }
+
+    $data['user'] = $this->UserModel->find($id);
+
+    if ($this->io->method() === 'post') {
+        $username = $this->io->post('username');
+        $email = $this->io->post('email');
+        $imagePath = $data['user']['image_path'] ?? 'uploads/default-avatar.png';
+
+        if (!empty($_FILES['profile']['name'])) {
+            $this->call->library('upload', $_FILES["profile"]);
+            $this->upload
+                ->set_dir('public/uploads')
+                ->allowed_extensions(['jpg','jpeg','png'])
+                ->allowed_mimes(['image/jpeg','image/png'])
+                ->max_size(5)
+                ->is_image()
+                ->encrypt_name();
+
+            if ($this->upload->do_upload()) {
+                $imagePath = 'uploads/' . $this->upload->get_filename();
+            } else {
+                echo implode('<br>', $this->upload->get_errors());
+                return;
+            }
+        }
+
+        $updateData = [
+            'username'   => $username,
+            'email'      => $email,
+            'image_path' => $imagePath
+        ];
+
+        try {
+            $this->UserModel->update($id, $updateData);
+            redirect('users/view');
+        } catch (Exception $e) {
+            echo 'Something went wrong while updating user: ' . htmlspecialchars($e->getMessage());
+        }
+    } else {
+        $data['user'] = $this->UserModel->find($id);
+        $this->call->view('users/update', $data);
+    }
+}
 
     public function delete($id)
-    {
-        $user = $this->UserModel->find($id);
-        
-        // Optional: delete the uploaded file
-        if($user && isset($user['image_path']) && $user['image_path'] !== 'uploads/default-avatar.png') {
-             $fullPath = __DIR__ . '/../../public/' . $user['image_path']; 
-             if (is_file($fullPath)) {
-             unlink($fullPath);
-            }
-        }
+{
+    $role = $_SESSION['role'] ?? 'user';
 
-        if ($this->UserModel->delete($id)) {
-            redirect('users/view');
-        } else {
-            echo 'Something went wrong while deleting user';
+    // Only admin can delete accounts
+    if ($role !== 'admin') {
+        redirect('users/view');
+    }
+
+    $user = $this->UserModel->find($id);
+    
+    if ($user && isset($user['image_path']) && $user['image_path'] !== 'uploads/default-avatar.png') {
+        $fullPath = __DIR__ . '/../../public/' . $user['image_path']; 
+        if (is_file($fullPath)) {
+            unlink($fullPath);
         }
     }
 
-    
+    if ($this->UserModel->delete($id)) {
+        redirect('users/view');
+    } else {
+        echo 'Something went wrong while deleting user';
+    }
+}
 }

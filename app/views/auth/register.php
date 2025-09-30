@@ -64,6 +64,8 @@ label{
 }
 input[type="text"],
 input[type="password"],
+input[type="email"],
+
 select{
     width:100%;
     padding:.75rem 1rem;
