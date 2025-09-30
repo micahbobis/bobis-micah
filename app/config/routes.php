@@ -54,5 +54,6 @@ $router->get('/users/delete/{id}', 'UserController::delete');
 $router->match('/auth/login', 'AuthController::login', ['GET','POST']);
 $router->get('/auth/logout', 'AuthController::logout');
 $router->get('/auth/dashboard', 'AuthController::dashboard');
+$router->match('/auth/register', 'AuthController::register', ['GET','POST']);
 
 
