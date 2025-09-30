@@ -14,16 +14,18 @@ class Auth
         $this->session = $lava->session; // assign session property
     }
 
-    public function register($username, $password, $role = 'user')
-    {
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        return $this->db->table('users')->insert([
-            'username' => $username,
-            'password' => $hash,
-            'role'     => $role,
-            'created_at' => date('Y-m-d H:i:s')
-        ]);
-    }
+    public function register($username, $email, $password, $role = 'user')
+{
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    
+    return $this->db->table('users')->insert([
+        'username'   => $username,
+        'email'      => $email,
+        'password'   => $hash,
+        'role'       => $role,
+        'created_at' => date('Y-m-d H:i:s')
+    ]);
+}
 
     public function login($username, $password)
     {
