@@ -12,11 +12,13 @@ class UserController extends Controller {
     if (!$this->auth->is_logged_in()) {
         redirect('auth/login');
     }
+ 
+        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 2);
+    $current_method = $trace[1]['function'] ?? null;
 
     $role = $_SESSION['role'] ?? 'user';
 
-    // ✅ Get current method safely
-    $current_method = $this->router->fetch_method(); 
+    
 
     if ($role !== 'admin' && in_array($current_method, ['create','update','delete'])) {
         redirect('users/view'); // user can’t modify users
