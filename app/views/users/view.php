@@ -270,7 +270,9 @@ td:last-child{
                         <?php if ($role === 'admin'): ?>
                         <td>
                             <a href="<?= site_url('users/update/'.$user['id']) ?>" class="btn-edit">Edit</a>
+                            <form action="<?= site_url('users/delete/'.$user['id']) ?>" method="post" onsubmit="return confirm('Are you sure you want to delete this user?');"></form>
                             <a href="<?= site_url('users/delete/'.$user['id']) ?>" class="btn-delete" onclick="return confirm('Are you sure?');">Delete</a>
+                        </form>
                         </td>
                         <?php endif; ?>
                     </tr>

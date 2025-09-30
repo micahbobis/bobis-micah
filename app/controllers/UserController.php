@@ -161,28 +161,45 @@ class UserController extends Controller {
     }
 }
 
-    public function delete($id)
+public function delete($id)
 {
+    // Ensure session is started
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+
     $role = $_SESSION['role'] ?? 'user';
+    $current_user_id = $_SESSION['user_id'] ?? null;
 
     // Only admin can delete accounts
     if ($role !== 'admin') {
+        // Log unauthorized attempt (optional)
+        error_log("Unauthorized delete attempt by user_id {$current_user_id} for user_id {$id}");
         redirect('users/view');
+        exit; // make sure execution stops
     }
 
+    // Find the user
     $user = $this->UserModel->find($id);
     
-    if ($user && isset($user['image_path']) && $user['image_path'] !== 'uploads/default-avatar.png') {
+    // Delete uploaded profile image if exists and not default
+    if ($user && !empty($user['image_path']) && $user['image_path'] !== 'uploads/default-avatar.png') {
         $fullPath = __DIR__ . '/../../public/' . $user['image_path']; 
         if (is_file($fullPath)) {
             unlink($fullPath);
         }
     }
 
-    if ($this->UserModel->delete($id)) {
-        redirect('users/view');
-    } else {
-        echo 'Something went wrong while deleting user';
+    // Delete user record
+    try {
+        if ($this->UserModel->delete($id)) {
+            redirect('users/view');
+            exit;
+        } else {
+            echo 'Something went wrong while deleting user';
+        }
+    } catch (Exception $e) {
+        echo 'Error: ' . htmlspecialchars($e->getMessage());
     }
 }
 }
