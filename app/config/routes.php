@@ -51,5 +51,8 @@ $router->match('/users/create', 'UserController::create', ['GET', 'POST']);
 $router->match('/users/update/{id}', 'UserController::update', ['GET', 'POST']);
 $router->get('/users/delete/{id}', 'UserController::delete');
 
+$router->match('/auth/login', 'AuthController::login', ['GET','POST']);
+$router->get('/auth/logout', 'AuthController::logout');
+$router->get('/auth/dashboard', 'AuthController::dashboard');
 
 

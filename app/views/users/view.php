@@ -1,3 +1,20 @@
+<?php
+defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: " . site_url('auth/login'));
+    exit;
+}
+
+
+$role = $_SESSION['role'] ?? null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -223,6 +240,7 @@ td:last-child{
                 <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
                 <button type="submit" class="search-btn"><i class="fa-solid fa-search"></i></button>
             </form>
+
          <a href="<?= site_url('users/create') ?>" class="btn-add">+ Add Account</a>
 </div>
 
@@ -249,10 +267,12 @@ td:last-child{
                         </td>
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['email'] ?></td>
+                        <?php if ($role === 'admin'): ?>
                         <td>
                             <a href="<?= site_url('users/update/'.$user['id']) ?>" class="btn-edit">Edit</a>
                             <a href="<?= site_url('users/delete/'.$user['id']) ?>" class="btn-delete" onclick="return confirm('Are you sure?');">Delete</a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

@@ -6,9 +6,21 @@ class UserController extends Controller {
     {
         parent::__construct();
         $this->call->model('UserModel');
-        
+         $this->call->library('auth'); // 🔹 load Auth library
 
+        // Check if user is logged in
+        if (!$this->auth->is_logged_in()) {
+            redirect('auth/login');
+        }
+         $role = $_SESSION['role'] ?? 'user';
+    $current_method = $this->router->method;
+
+    if ($role !== 'admin' && in_array($current_method, ['create','update','delete'])) {
+        redirect('auth/dashboard'); // user can’t modify users
     }
+
+
+ }
 
     public function view()
     {
@@ -148,4 +160,6 @@ class UserController extends Controller {
             echo 'Something went wrong while deleting user';
         }
     }
+
+    
 }
