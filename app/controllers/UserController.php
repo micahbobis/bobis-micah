@@ -3,24 +3,26 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
 class UserController extends Controller {
     public function __construct()
-    {
-        parent::__construct();
-        $this->call->model('UserModel');
-         $this->call->library('auth'); // 🔹 load Auth library
+{
+    parent::__construct();
+    $this->call->model('UserModel');
+    $this->call->library('auth'); // 🔹 load Auth library
 
-        // Check if user is logged in
-        if (!$this->auth->is_logged_in()) {
-            redirect('auth/login');
-        }
-         $role = $_SESSION['role'] ?? 'user';
-         $current_method = $this->method;
+    // Check if user is logged in
+    if (!$this->auth->is_logged_in()) {
+        redirect('auth/login');
+    }
+
+    $role = $_SESSION['role'] ?? 'user';
+
+    // ✅ Get current method safely
+    $current_method = $this->router->fetch_method(); 
 
     if ($role !== 'admin' && in_array($current_method, ['create','update','delete'])) {
         redirect('users/view'); // user can’t modify users
     }
+}
 
-
- }
 
     public function view(
     )
