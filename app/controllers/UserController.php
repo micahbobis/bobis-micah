@@ -16,13 +16,14 @@ class UserController extends Controller {
     $current_method = $this->router->method;
 
     if ($role !== 'admin' && in_array($current_method, ['create','update','delete'])) {
-        redirect('auth/dashboard'); // user can’t modify users
+        redirect('users/view'); // user can’t modify users
     }
 
 
  }
 
-    public function view()
+    public function view(
+    )
     {
         $page = 1;
         if(isset($_GET['page']) && !empty($_GET['page'])) {
