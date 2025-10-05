@@ -336,7 +336,6 @@ td:last-child {
     transition: all 0.3s ease;
 }
 
-/* Edit button */
 .btn-edit {
     background: var(--matcha-light);
     color: var(--text-dark);
@@ -349,7 +348,6 @@ td:last-child {
     transform: translateY(-2px);
 }
 
-/* Delete button */
 .btn-delete {
     background: var(--red);
     color: var(--off-white);
@@ -361,10 +359,11 @@ td:last-child {
     transform: translateY(-2px);
 }
 
-/* Icons */
 .btn i {
     font-size: 0.95rem;
 }
+
+/* Icons */
 
 i {
     margin-right: 6px;
@@ -423,13 +422,16 @@ i {
                         <td><?= $user['email'] ?></td>
                         <?php if($_SESSION['role'] === 'admin'): ?>
                         <td>
-                            <a href="<?= site_url('users/update/' . $user['id']) ?>">
+                           <a href="<?= site_url('users/update/' . $user['id']) ?>" class="btn btn-edit">
   <i class="fas fa-pen"></i> Edit
 </a>
 
-<a href="<?= site_url('users/delete/' . $user['id']) ?>" onclick="return confirm('Are you sure you want to delete this user?');">
+<a href="<?= site_url('users/delete/' . $user['id']) ?>" 
+   class="btn btn-delete" 
+   onclick="return confirm('Are you sure you want to delete this user?');">
   <i class="fas fa-trash"></i> Delete
 </a>
+
 
                         
                         </td>
