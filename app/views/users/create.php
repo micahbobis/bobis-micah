@@ -5,6 +5,7 @@
 <title>Create Profile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
@@ -39,41 +40,48 @@ body::before{
 }
 /* Card container */
 .card {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.85);
     border: 2px solid var(--matcha-dark);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    border-radius: 20px; /* ✅ curved corners */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     padding: 2rem;
-    width: 90%;          /* add this */
-    max-width: 900px;    /* optional */
-    margin: auto;        /* centers card if parent allows */
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    backdrop-filter: blur(6px); /* ✅ soft transparency */
+    transition: all 0.3s ease;
 }
 
-
 /* Header */
-.card-header{
-    background: var(--matcha-dark);
+.card-header {
+    background: rgba(63, 92, 75, 0.95);
     color: var(--off-white);
     padding: 1.5rem 2rem;
     border-bottom: 2px solid var(--matcha-light);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
     text-align: center;
 }
-.title{
-    font-size:2rem;
-    font-weight:700;
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 /* Body */
-.card-body{
+.card-body {
     padding: 2rem;
 }
+
+/* Profile Section */
 .form-top {
     display: flex;
     flex-direction: column;
-    align-items: center; /* centers horizontally */
-    justify-content: center; /* centers vertically if needed */
+    align-items: center;
+    justify-content: center;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
-    width: 100%; /* ensure it takes full card width */
+    width: 100%;
 }
 
 .profile-preview {
@@ -82,69 +90,88 @@ body::before{
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--matcha-dark);
-    display: block;
-    margin: 0 auto; /* centers horizontally */
+    box-shadow: 0 0 8px rgba(63, 92, 75, 0.3); /* ✅ subtle glow */
+    transition: all 0.3s ease;
+}
+.profile-preview:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 12px rgba(63, 92, 75, 0.6);
 }
 
-/* Form fields */
-.form-group{margin-bottom:1.5rem;}
-label{
-    font-weight:500;
-    font-size:1rem;
-    color:var(--text-dark);
-    display:block;
-    margin-bottom:0.5rem;
+/* Form Fields */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+label {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 0.5rem;
 }
 input[type="text"],
 input[type="email"],
-input[type="file"]{
-    width:100%;
-    padding:.75rem 1rem;
-    border:1px solid var(--matcha-dark);
+input[type="file"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--matcha-dark);
     background: var(--off-white);
     color: var(--text-dark);
-    font-size:1rem;
-    transition: all .2s ease;
+    font-size: 1rem;
+    border-radius: 8px; /* ✅ rounded input fields */
+    transition: all 0.25s ease;
 }
-input::placeholder{color:var(--text-light);}
-input:focus{
-    outline:none;
+input::placeholder {
+    color: var(--text-light);
+}
+input:focus {
+    outline: none;
     border-color: var(--matcha-light);
-    box-shadow:0 0 0 3px rgba(169,193,168,0.3);
+    box-shadow: 0 0 8px rgba(169, 193, 168, 0.5); /* ✅ soft green glow */
+    background: #ffffffb5;
 }
 
 /* Buttons */
-.actions{
-    display:flex;
-    gap:1rem;
-    justify-content:center;
-    margin-top:1rem;
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
 }
-.btn{
-    padding:.6rem 1.4rem;
-    font-weight:600;
-    font-size:1rem;
-    cursor:pointer;
-    border:none;
-    transition:all .25s ease;
+.btn {
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
 }
-.btn-primary{
+
+/* ✅ Primary (Save/Update) */
+.btn-primary {
     background: var(--matcha-dark);
     color: var(--off-white);
+    border-color: var(--matcha-dark);
 }
-.btn-primary:hover{
+.btn-primary:hover {
     background: #2f4639;
-    transform:translateY(-2px);
+    box-shadow: 0 0 10px rgba(63, 92, 75, 0.8);
+    transform: translateY(-2px);
 }
-.btn-secondary{
+
+/* ✅ Secondary (Cancel/Back) */
+.btn-secondary {
+    background: var(--off-white);
+    color: var(--matcha-dark);
+    border: 2px solid var(--matcha-dark);
+}
+.btn-secondary:hover {
     background: var(--matcha-light);
-    color: var(--text-dark);
-    border:1px solid var(--matcha-dark);
+    box-shadow: 0 0 8px rgba(169, 193, 168, 0.8);
+    transform: translateY(-2px);
 }
-.btn-secondary:hover{
-    background: #98b598;
-    transform:translateY(-2px);
-}
+
 </style>
 </head>
 <body>
@@ -171,9 +198,14 @@ input:focus{
                 </div>
 
                 <div class="actions">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">Back</a>
-                </div>
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Create
+    </button>
+    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back
+    </a>
+</div>
+
             </form>
 
             <script>

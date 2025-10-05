@@ -36,76 +36,127 @@ body::before{
     background:rgba(223,240,210,0.25);
     z-index:-1;
 }
-.card{
-    background:rgba(255,255,255,0.9);
-    border:2px solid var(--matcha-dark);
-    box-shadow:0 8px 20px rgba(0,0,0,0.2);
-    padding:2rem;
-    width:90%;
-    max-width:400px;
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--matcha-dark);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
 }
-.card-header{
-    background:var(--matcha-dark);
-    color:var(--off-white);
-    padding:1.2rem;
-    text-align:center;
-    border-bottom:2px solid var(--matcha-light);
+
+/* Header */
+.card-header {
+    background: var(--matcha-dark);
+    color: var(--off-white);
+    padding: 1.2rem;
+    text-align: center;
+    border-bottom: 2px solid var(--matcha-light);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
-.title{
-    font-size:1.8rem;
-    font-weight:700;
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
 }
-.card-body{padding:2rem 1rem;}
-.form-group{margin-bottom:1.2rem;}
-label{
-    font-weight:500;
-    margin-bottom:.4rem;
-    display:block;
+
+/* Body */
+.card-body {
+    padding: 2rem 1rem;
+}
+.form-group {
+    margin-bottom: 1.2rem;
+}
+label {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    display: block;
 }
 input[type="text"],
-input[type="password"]{
-    width:100%;
-    padding:.75rem 1rem;
-    border:1px solid var(--matcha-dark);
-    background:var(--off-white);
-    font-size:1rem;
-    color:var(--text-dark);
-    transition:all .2s ease;
+input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--matcha-dark);
+    background: var(--off-white);
+    font-size: 1rem;
+    color: var(--text-dark);
+    border-radius: 8px;
+    transition: all 0.2s ease;
 }
-input:focus{
-    outline:none;
-    border-color:var(--matcha-light);
-    box-shadow:0 0 0 3px rgba(169,193,168,0.3);
+input:focus {
+    outline: none;
+    border-color: var(--matcha-light);
+    box-shadow: 0 0 0 3px rgba(169, 193, 168, 0.3);
 }
-.actions{margin-top:1.5rem;}
-.btn{
-    width:100%;
-    padding:.75rem;
-    font-weight:600;
-    font-size:1rem;
-    border:none;
-    cursor:pointer;
-    transition:all .25s ease;
+
+/* Buttons */
+.actions {
+    margin-top: 1.5rem;
 }
-.btn-primary{
-    background:var(--matcha-dark);
-    color:var(--off-white);
+.btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.25s ease;
 }
-.btn-primary:hover{
-    background:#2f4639;
-    transform:translateY(-2px);
+.btn-primary {
+    background: var(--matcha-dark);
+    color: var(--off-white);
 }
-.text-center{
-    text-align:center;
-    margin-top:1rem;
-    color:var(--text-light);
+.btn-primary:hover {
+    background: #2f4639;
+    transform: translateY(-2px);
 }
-.text-center a{
-    color:var(--matcha-dark);
-    font-weight:600;
-    text-decoration:none;
+
+/* Text Links */
+.text-center {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--text-light);
 }
-.text-center a:hover{text-decoration:underline;}
+.text-center a {
+    color: var(--matcha-dark);
+    font-weight: 600;
+    text-decoration: none;
+}
+.text-center a:hover {
+    text-decoration: underline;
+}
+.btn i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+.text-center a i {
+    margin-right: 0.4rem;
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .card {
+        padding: 1.5rem;
+    }
+    .title {
+        font-size: 1.5rem;
+    }
+    input[type="text"],
+    input[type="password"],
+    .btn {
+        font-size: 0.95rem;
+        padding: 0.65rem;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -124,14 +175,19 @@ input:focus{
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" placeholder="Enter password" required>
             </div>
-            <div class="actions">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
-        </form>
-        <p class="text-center">
-            Don’t have an account? 
-            <a href="<?= site_url('auth/register') ?>">Register</a>
-        </p>
+           <div class="actions">
+    <button type="submit" class="btn btn-primary">
+        <i class="fa-solid fa-right-to-bracket"></i> Login
+    </button>
+</div>
+</form>
+<p class="text-center">
+    Don’t have an account? 
+    <a href="<?= site_url('auth/register') ?>">
+        <i class="fa-solid fa-user-plus"></i> Register
+    </a>
+</p>
+
     </div>
 </div>
 

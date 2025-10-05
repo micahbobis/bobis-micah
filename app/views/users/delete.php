@@ -5,6 +5,7 @@
 <title>Delete User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
@@ -43,70 +44,86 @@ body::before {
 
 /* Container & Card */
 .card {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.85);
     border: 2px solid var(--matcha-dark);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    border-radius: 20px; /* ✅ curved corners */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     padding: 2rem;
-    width: 90%;          /* add this */
-    max-width: 900px;    /* optional */
-    margin: auto;        /* centers card if parent allows */
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    backdrop-filter: blur(6px); /* ✅ soft transparency */
+    transition: all 0.3s ease;
 }
 
 /* Header */
-.card-header{
-    background: var(--matcha-dark);
-    padding:1.5rem 2rem;
-    border-bottom:2px solid var(--matcha-light);
+.card-header {
+    background: rgba(63, 92, 75, 0.95);
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid var(--matcha-light);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
     text-align: center;
 }
-.card-header h1{
-    font-size:2rem;
-    font-weight:700;
-    color: var(--red);
+.card-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--danger); /* ✅ uses your red tone */
 }
 
 /* Body */
-.card-body{
-    padding:2rem;
-    text-align:center;
+.card-body {
+    padding: 2rem;
+    text-align: center;
 }
-.card-body p{
-    font-size:1.1rem;
+.card-body p {
+    font-size: 1.1rem;
     color: var(--text-dark);
-    margin-bottom:1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Buttons */
-.actions{
-    display:flex;
-    justify-content:center;
-    gap:1rem;
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
-.btn{
-    padding:.6rem 1.4rem;
-    font-weight:600;
-    font-size:1rem;
-    cursor:pointer;
-    border:none;
-    transition:all .25s ease;
+.btn {
+    padding: 0.7rem 1.6rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
 }
-.btn-confirm{
-    background: var(--red);
+
+/* ✅ Confirm (red button) */
+.btn-confirm {
+    background: var(--danger);
     color: var(--off-white);
+    border-color: var(--danger);
 }
-.btn-confirm:hover{
-    background:#c0392b;
-    transform:translateY(-2px);
+.btn-confirm:hover {
+    background: #a8322f;
+    box-shadow: 0 0 10px rgba(176, 65, 62, 0.8); /* ✅ red glow */
+    transform: translateY(-2px);
 }
-.btn-cancel{
+
+/* ✅ Cancel (matcha button) */
+.btn-cancel {
+    background: var(--off-white);
+    color: var(--matcha-dark);
+    border: 2px solid var(--matcha-dark);
+}
+.btn-cancel:hover {
     background: var(--matcha-light);
-    color: var(--text-dark);
-    border:1px solid var(--matcha-dark);
+    box-shadow: 0 0 8px rgba(169, 193, 168, 0.8); /* ✅ soft green glow */
+    transform: translateY(-2px);
 }
-.btn-cancel:hover{
-    background:#98b598;
-    transform:translateY(-2px);
-}
+
 </style>
 </head>
 <body>
@@ -120,9 +137,14 @@ body::before {
             <p>Are you sure you want to delete <strong><?= $user['username'] ?></strong> (<?= $user['email'] ?>)?</p>
             <form action="<?= site_url('users/delete/' . $user['id']) ?>" method="POST">
                 <div class="actions">
-                    <button type="submit" class="btn btn-confirm">Yes, Delete</button>
-                    <a href="<?= site_url('users/view') ?>" class="btn btn-cancel">Cancel</a>
-                </div>
+    <button type="submit" class="btn btn-confirm">
+        <i class="fas fa-check"></i> Yes, Delete
+    </button>
+    <a href="<?= site_url('users/view') ?>" class="btn btn-cancel">
+        <i class="fas fa-times"></i> Cancel
+    </a>
+</div>
+
             </form>
         </div>
     </div>

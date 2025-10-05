@@ -5,6 +5,7 @@
 <title>Update User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
@@ -39,111 +40,123 @@ body::before{
 }
 /* Container & Card */
 .card {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.85);
     border: 2px solid var(--matcha-dark);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    border-radius: 20px; /* ✅ curved edges */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     padding: 2rem;
-    width: 90%;          /* add this */
-    max-width: 900px;    /* optional */
-    margin: auto;        /* centers card if parent allows */
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    backdrop-filter: blur(6px); /* ✅ subtle transparency effect */
+    transition: all 0.3s ease;
 }
-
 
 /* Header */
-.card-header{
-    background: var(--matcha-dark);
-    padding:1.5rem 2rem;
-    border-bottom:2px solid var(--matcha-light);
-    text-align:center;
+.card-header {
+    background: rgba(63, 92, 75, 0.95);
+    padding: 1.5rem 2rem;
+    border-bottom: 2px solid var(--matcha-light);
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    text-align: center;
 }
-.card-header h1{
-    font-size:2rem;
-    font-weight:700;
+.card-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--off-white);
 }
 
 /* Body */
-.card-body{
-    padding:2rem;
-    text-align:center;
+.card-body {
+    padding: 2rem;
+    text-align: center;
 }
-.form-top{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:1.5rem;
-    margin-bottom:1.5rem;
+.form-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
 }
-.profile-preview{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid var(--matcha-dark);
+.profile-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--matcha-dark);
 }
 
 /* Form fields */
-.form-group{
-    margin-bottom:1.5rem;
-    text-align:left;
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
 }
-label{
-    font-weight:500;
-    font-size:1rem;
-    color:var(--text-dark);
-    display:block;
-    margin-bottom:0.5rem;
+label {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-dark);
+    display: block;
+    margin-bottom: 0.5rem;
 }
 input[type="text"],
 input[type="email"],
-input[type="file"]{
-    width:100%;
-    padding:.75rem 1rem;
-    border:1px solid var(--matcha-dark);
-    background: var(--off-white);
+input[type="file"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--matcha-dark);
+    background: rgba(249, 249, 246, 0.9);
     color: var(--text-dark);
-    font-family:'Montserrat',sans-serif;
-    font-size:1rem;
-    transition: all .2s ease;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    border-radius: 10px; /* ✅ smoother inputs */
+    transition: all 0.25s ease;
 }
-input::placeholder{color:var(--text-light);}
-input:focus{
-    outline:none;
+input::placeholder {
+    color: var(--text-light);
+}
+input:focus {
+    outline: none;
     border-color: var(--matcha-light);
-    box-shadow:0 0 0 3px rgba(169,193,168,0.3);
+    box-shadow: 0 0 6px rgba(169, 193, 168, 0.6);
 }
 
 /* Buttons */
-.actions{
-    display:flex;
-    gap:1rem;
-    justify-content:center;
-    margin-top:1rem;
+.actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
 }
-.btn{
-    padding:.6rem 1.4rem;
-    font-weight:600;
-    font-size:1rem;
-    cursor:pointer;
-    border:none;
-    transition:all .25s ease;
+.btn {
+    padding: 0.7rem 1.6rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
 }
-.btn-primary{
+.btn-primary {
     background: var(--matcha-dark);
     color: var(--off-white);
+    border-color: var(--matcha-dark);
 }
-.btn-primary:hover{
-    background:#2f4639;
-    transform:translateY(-2px);
+.btn-primary:hover {
+    background: #2f4639;
+    box-shadow: 0 0 10px rgba(63, 92, 75, 0.8); /* ✅ glow effect */
+    transform: translateY(-2px);
 }
-.btn-secondary{
+.btn-secondary {
+    background: var(--off-white);
+    color: var(--matcha-dark);
+    border: 2px solid var(--matcha-dark);
+}
+.btn-secondary:hover {
     background: var(--matcha-light);
-    color: var(--text-dark);
-    border:1px solid var(--matcha-dark);
-}
-.btn-secondary:hover{
-    background:#98b598;
-    transform:translateY(-2px);
+    box-shadow: 0 0 8px rgba(169, 193, 168, 0.8);
+    transform: translateY(-2px);
 }
 </style>
 </head>
@@ -176,8 +189,15 @@ input:focus{
 
                 <!-- Actions -->
                 <div class="actions">
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">Cancel</a>
+                   <button type="submit" class="btn btn-primary">
+  <i class="fas fa-save"></i> Save Changes
+</button>
+
+<a href="<?= site_url('users/view') ?>" class="btn btn-secondary">
+  <i class="fas fa-times"></i> Cancel
+</a>
+
+
                 </div>
             </form>
 

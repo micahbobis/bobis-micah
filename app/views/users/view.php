@@ -23,21 +23,26 @@ $role = $_SESSION['role'] ?? null;
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="<?= base_url() ?>public/favicon.ico">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
 <style>
-:root{
-    --matcha-dark:#3f5c4b;
-    --matcha-light:#a9c1a8;
-    --off-white:#f9f9f6;
-    --text-dark:#2e2e2e;
-    --danger:#b0413e;
+:root {
+    --matcha-dark: #3f5c4b;
+    --matcha-light: #a9c1a8;
+    --off-white: #f9f9f6;
+    --text-dark: #2e2e2e;
+    --danger: #b0413e;
 }
 
 /* Reset */
-*{margin:0;padding:0;box-sizing:border-box;}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Body & Background */
+/* Body */
 body{
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(rgba(223,240,210,0.25), rgba(223,240,210,0.25)),
@@ -57,20 +62,27 @@ body::before{
     z-index:-1;
 }
 
-/* Card container */
+/* 🪟 Card container */
 .card {
-    background: rgba(255,255,255,0.9);
-    border: 2px solid var(--matcha-dark);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(63, 92, 75, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     padding: 2rem;
-    width: 95%;          /* add this */
-    max-width:1200px;    /* optional */
-    margin: auto;        /* centers card if parent allows */
+    width: 95%;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 20px;
+    transition: 0.3s ease;
 }
 
+.card:hover {
+    border-color: var(--matcha-light);
+    box-shadow: 0 0 20px rgba(169, 193, 168, 0.8);
+}
 
 /* Title */
-h1.main-title{
+h1.main-title {
     text-align: center;
     font-size: 2.5rem;
     font-weight: 700;
@@ -78,150 +90,243 @@ h1.main-title{
     margin-bottom: 2rem;
 }
 
-/* Table wrapper */
-.table-wrapper{
-    overflow-x:auto;
+/* Table */
+.table-wrapper {
+    overflow-x: auto;
 }
 
-/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto;  /* allows columns to adjust */
 }
 
 th, td {
     padding: 0.75rem 1rem;
     text-align: left;
 }
-th{
+
+th {
     background: var(--matcha-dark);
     color: var(--off-white);
     font-weight: 700;
 }
-tr:nth-child(even) td{background: var(--off-white);}
-tr:nth-child(odd) td{background: #f1f4f0;}
-tr:hover td{background: var(--matcha-light);}
 
-/* Profile image */
-img.profile-img{
-       width: 80px;              /* adjust bigger if needed */
+tr:nth-child(even) td { background: var(--off-white); }
+tr:nth-child(odd) td { background: #f1f4f0; }
+tr:hover td {
+    background: var(--matcha-light);
+    color: var(--off-white);
+    transition: 0.3s;
+}
+
+/* Profile Image */
+img.profile-img {
+    width: 80px;
     height: 80px;
     object-fit: cover;
-    border-radius: 50%;       /* circular */
-    border: 2px solid #3f5c4b; /* matcha dark border */
+    border-radius: 50%;
+    border: 2px solid var(--matcha-dark);
+    box-shadow: 0 0 10px rgba(63, 92, 75, 0.5);
 }
-/* Action buttons */
-td:last-child{
-    display:flex;
-    justify-content:center;
-    gap:0.5rem;
+
+/* Action Buttons */
+td:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
 }
-.btn-edit, .btn-delete{
-    padding:0.4rem 0.8rem;
-    font-weight:600;
-    text-decoration:none;
-    cursor:pointer;
-    border:1px solid var(--matcha-dark);
-    transition: all 0.2s ease;
+
+.btn-edit, .btn-delete {
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
-.btn-edit{
+
+.btn-edit {
     background: var(--matcha-light);
     color: var(--text-dark);
+    border: 1px solid var(--matcha-dark);
 }
-.btn-edit:hover{background:#98b598;}
-.btn-delete{
+
+.btn-edit:hover {
+    background: var(--matcha-dark);
+    color: var(--off-white);
+    box-shadow: 0 0 10px var(--matcha-light);
+}
+
+.btn-delete {
     background: var(--danger);
     color: var(--off-white);
-    border:1px solid #943737;
+    border: 1px solid #943737;
 }
-.btn-delete:hover{background:#943737;}
+
+.btn-delete:hover {
+    background: #943737;
+    box-shadow: 0 0 10px rgba(176, 65, 62, 0.8);
+}
 
 /* Empty state */
-.empty{
-    padding:2rem;
-    text-align:center;
-    font-style:italic;
-    background:#f1f4f0;
+.empty {
+    padding: 2rem;
+    text-align: center;
+    font-style: italic;
+    background: #f1f4f0;
     color: var(--text-dark);
 }
 
 /* Pagination */
-.pagination{
-    list-style:none;
-    display:flex;
-    justify-content:center;
-    gap:0.5rem;
-    margin:1rem 0;
-    padding:0;
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    padding: 0;
 }
-.pagination li a, .pagination li span{
-    display:inline-block;
-    padding:0.5rem 0.9rem;
-    border:1px solid var(--matcha-dark);
+
+.pagination li a, .pagination li span {
+    display: inline-block;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--matcha-dark);
     background: var(--matcha-light);
     color: var(--text-dark);
-    text-decoration:none;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
 }
-.pagination li a:hover{background:#98b598;}
-.pagination li.active a, .pagination li span.current{
+
+.pagination li a:hover {
     background: var(--matcha-dark);
     color: var(--off-white);
-    font-weight:700;
+    box-shadow: 0 0 10px var(--matcha-light);
 }
 
-.header-actions{
-  display:flex;
-    justify-content: space-between; /* ✅ search sa kaliwa, button sa kanan */
-  align-items: center;   
-    margin-bottom: 1.5rem; 
-  margin-top:0.5rem;
+.pagination li.active a {
+    background: var(--matcha-dark);
+    color: var(--off-white);
 }
 
-.search-form{
-  display:flex;
-  align-items:center;
-  border:2px solid var(--matcha-dark);
-  border-radius:4px;
-  background:var(--off-white);
-  height:40px;          /* ✅ match height */
+/* Header actions (Search + Add button) */
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
 }
 
-.search-input{
-  border:none;
-  outline:none;
-  padding:0 0.75rem;
-  height:100%;          /* ✅ match height */
-  background:transparent;
-  color:var(--matcha-dark);
+/* Search bar */
+.search-form {
+    display: flex;
+    align-items: center;
+    border: 2px solid var(--matcha-dark);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    height: 45px;
+    overflow: hidden;
+    transition: 0.3s;
 }
 
-.search-btn{
-  background:var(--matcha-dark);
-  color:var(--off-white);
-  border:none;
-  padding:0 0.9rem;
-  height:100%;          /* ✅ match height */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  border-top-right-radius:4px;
-  border-bottom-right-radius:4px;
+.search-form:hover {
+    box-shadow: 0 0 10px var(--matcha-light);
 }
 
-.btn-add{
-  padding:0.5rem 1rem;
-  background:var(--matcha-dark);
-  color:var(--off-white);
-  text-decoration:none;
-  font-weight:600;
-  border-radius:4px;
-  height:40px;          /* ✅ same as search form */
-  display:flex;
-  align-items:center;   /* center text vertically */
-  justify-content:center;
+.search-input {
+    border: none;
+    outline: none;
+    padding: 0 0.75rem;
+    height: 100%;
+    background: transparent;
+    color: var(--matcha-dark);
+    flex: 1;
 }
+
+.search-btn {
+    background: var(--matcha-dark);
+    color: var(--off-white);
+    border: none;
+    padding: 0 1rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-btn:hover {
+    background: var(--matcha-light);
+    color: var(--matcha-dark);
+    box-shadow: 0 0 10px var(--matcha-light);
+}
+
+
+
+/* Add button */
+.btn-add {
+    padding: 0.6rem 1.2rem;
+    background: var(--matcha-dark);
+    color: var(--off-white);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 30px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    border: 1px solid var(--matcha-dark);
+}
+
+.btn-add:hover {
+    background: var(--matcha-light);
+    color: var(--text-dark);
+    box-shadow: 0 0 15px var(--matcha-light);
+}
+.search-btn i {
+  color: var(--off-white);
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.search-btn:hover i {
+  color: var(--matcha-dark);
+}
+.btn-add {
+  padding: 0.5rem 1.2rem;
+  background: var(--matcha-dark);
+  color: var(--off-white);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 0 0 5px rgba(63, 92, 75, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-add i {
+  font-size: 1rem;
+}
+
+.btn-add:hover {
+  background: var(--matcha-light);
+  color: var(--text-dark);
+  box-shadow: 0 0 10px rgba(63, 92, 75, 0.7);
+  transform: scale(1.05);
+}
+ ✨ Optional Icons (Font Awesome recommended) */
+i {
+    margin-right: 6px;
+    font-size: 1rem;
+}
+
 
 </style>
 </head>
@@ -236,10 +341,17 @@ td:last-child{
             <form action="<?=site_url('users/view');?>" method="get" class="search-form">
                 <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
                 <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
-                <button type="submit" class="search-btn"><i class="fa-solid fa-search"></i></button>
+                <button type="submit" class="search-btn">
+                <i class="fa-solid fa-search"></i>
+                </button>
+
+
             </form>
 
-         <a href="<?= site_url('users/create') ?>" class="btn-add">+ Add Account</a>
+        <a href="<?= site_url('users/create') ?>" class="btn-add">
+  <i class="fa-solid fa-user-plus"></i> &nbsp; Add Account
+</a>
+
 </div>
 
         <div class="table-wrapper">
@@ -267,9 +379,14 @@ td:last-child{
                         <td><?= $user['email'] ?></td>
                         <?php if($_SESSION['role'] === 'admin'): ?>
                         <td>
-                            <a href="<?= site_url('users/update/'.$user['id']) ?>" class="btn-edit">Edit</a>
-                            <form action="<?= site_url('users/delete/'.$user['id']) ?>" method="post" onsubmit="return confirm('Are you sure ');">
-                            <a href="<?= site_url('users/delete/'.$user['id']) ?>" class="btn-delete" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a></form>
+                            <a href="<?= site_url('users/update/' . $user['id']) ?>">
+  <i class="fas fa-pen"></i> Edit
+</a>
+
+<a href="<?= site_url('users/delete/' . $user['id']) ?>" onclick="return confirm('Are you sure you want to delete this user?');">
+  <i class="fas fa-trash"></i> Delete
+</a>
+
                         
                         </td>
                         <?php endif; ?>
