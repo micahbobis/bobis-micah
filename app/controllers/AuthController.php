@@ -21,28 +21,28 @@ class AuthController extends Controller
     $this->call->view('auth/register');
 }
 
-public function login()
-{
-    $this->call->library('auth');
+    public function login()
+    {
+        $this->call->library('auth');
 
-    if ($this->io->method() == 'post') {
-        $username = $this->io->post('username');
-        $password = $this->io->post('password');
+        if ($this->io->method() == 'post') {
+            $username = $this->io->post('username');
+            $password = $this->io->post('password');
 
-        $user = $this->auth->login($username, $password); // dapat bumalik ang user record array
-
-        if ($user) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role']    = $user['role']; // 'admin' o 'user'
-
-            redirect('users/view');
-        } else {
-            echo 'Login failed!';
+            if ($this->auth->login($username, $password)) {
+                // check role and redirect accordingly
+                if ($this->auth->has_role('admin')) {
+                    redirect('/users/view'); // full access page
+                } else {
+                    redirect('auth/login'); // user view-only page
+                }
+            } else {
+                echo 'Login failed!';
+            }
         }
-    }
 
-    $this->call->view('auth/login');
-}
+        $this->call->view('auth/login');
+    }
 
   
     public function logout()
