@@ -184,7 +184,12 @@ input:focus {
         <div class="card-body">
             <form action="<?= site_url('users/create') ?>" method="POST" enctype="multipart/form-data">
                 <div class="form-top">
-                    <img src="<?= base_url() ?>public/default-avatar.png" alt="Default profile" class="profile-preview" id="profilePreview">
+                    <!-- ✅ fixed image path to match upload folder -->
+                    <img src="<?= base_url() ?>public/uploads/default-avatar.png" 
+                         alt="Profile preview" 
+                         class="profile-preview" 
+                         id="profilePreview">
+
                     <input type="file" name="profile" id="profile" accept="image/*">
                 </div>
 
@@ -192,25 +197,26 @@ input:focus {
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" placeholder="Enter username" required>
                 </div>
+
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" placeholder="Enter email" required>
                 </div>
 
                 <div class="actions">
-    <button type="submit" class="btn btn-primary">
-        <i class="fas fa-plus"></i> Create
-    </button>
-    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">
-        <i class="fas fa-arrow-left"></i> Back
-    </a>
-</div>
-
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Create
+                    </button>
+                    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                </div>
             </form>
 
             <script>
             const profileInput = document.getElementById('profile');
             const previewImg   = document.getElementById('profilePreview');
+
             profileInput.addEventListener('change', function(){
                 const file = this.files[0];
                 if(file){

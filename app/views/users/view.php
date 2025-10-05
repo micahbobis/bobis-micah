@@ -350,11 +350,12 @@ td:last-child {
 
 .btn-delete {
     background: var(--red);
-    color: var(--off-white);
+    color: var(--text-dark);
     border-color: var(--red);
 }
 .btn-delete:hover {
     background: #c0392b;
+    color: var(--off-white);
     box-shadow: 0 0 8px #c0392b;
     transform: translateY(-2px);
 }
@@ -385,17 +386,14 @@ i {
                 <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
                 <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
                 <button type="submit" class="search-btn">
-                <i class="fa-solid fa-search"></i>
+                    <i class="fa-solid fa-search"></i>
                 </button>
-
-
             </form>
 
-        <a href="<?= site_url('users/create') ?>" class="btn-add">
-  <i class="fa-solid fa-user-plus"></i> &nbsp; Add Account
-</a>
-
-</div>
+            <a href="<?= site_url('users/create') ?>" class="btn-add">
+                <i class="fa-solid fa-user-plus"></i> &nbsp; Add Account
+            </a>
+        </div>
 
         <div class="table-wrapper">
             <table>
@@ -414,26 +412,26 @@ i {
                     <tr>
                         <td><?= $user['id'] ?></td>
                         <td>
-                            <img src="<?= base_url() . 'public/' . $user['image_path'] ?>" 
-                             alt="Profile" class="profile-img">
-
+                            <img src="<?= !empty($user['image_path']) && $user['image_path'] !== 'default-avatar.png' 
+                                ? base_url() . 'public/' . html_escape($user['image_path']) 
+                                : base_url() . 'public/default-avatar.png' ?>" 
+                                alt="Profile"
+                                width="60" height="60"
+                                style="border-radius:50%; object-fit:cover;">
                         </td>
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['email'] ?></td>
                         <?php if($_SESSION['role'] === 'admin'): ?>
                         <td>
-                           <a href="<?= site_url('users/update/' . $user['id']) ?>" class="btn btn-edit">
-  <i class="fas fa-pen"></i> Edit
-</a>
+                            <a href="<?= site_url('users/update/' . $user['id']) ?>" class="btn btn-edit">
+                                <i class="fas fa-pen"></i> Edit
+                            </a>
 
-<a href="<?= site_url('users/delete/' . $user['id']) ?>" 
-   class="btn btn-delete" 
-   onclick="return confirm('Are you sure you want to delete this user?');">
-  <i class="fas fa-trash"></i> Delete
-</a>
-
-
-                        
+                            <a href="<?= site_url('users/delete/' . $user['id']) ?>" 
+                               class="btn btn-delete" 
+                               onclick="return confirm('Are you sure you want to delete this user?');">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
                         </td>
                         <?php endif; ?>
                     </tr>
