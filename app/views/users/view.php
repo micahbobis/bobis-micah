@@ -185,28 +185,40 @@ td:last-child {
     gap: 0.5rem;
     margin: 1rem 0;
     padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.pagination li a, .pagination li span {
+.pagination li a, 
+.pagination li span {
     display: inline-block;
     padding: 0.5rem 0.9rem;
     border: 1px solid var(--matcha-dark);
-    background: var(--matcha-light);
-    color: var(--text-dark);
+    background: var(--off-white);
+    color: var(--matcha-dark);
     text-decoration: none;
-    border-radius: 6px;
-    transition: 0.3s;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
 .pagination li a:hover {
     background: var(--matcha-dark);
     color: var(--off-white);
-    box-shadow: 0 0 10px var(--matcha-light);
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px var(--matcha-dark);
 }
 
-.pagination li.active a {
+.pagination li.active span {
     background: var(--matcha-dark);
     color: var(--off-white);
+    box-shadow: 0 0 10px var(--matcha-dark);
+    pointer-events: none;
+}
+
+.pagination li.disabled span {
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 /* Header actions (Search + Add button) */
