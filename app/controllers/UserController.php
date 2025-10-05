@@ -35,11 +35,11 @@ public function __construct()
         $total_rows = $all['total_rows'];
 
         $this->pagination->set_options([
-            'first_link'     => '⏮ First',
-            'last_link'      => 'Last ⏭',
-            'next_link'      => 'Next →',
-            'prev_link'      => '← Prev',
-            'page_delimiter' => '&page='
+            'first_link'     => '<i class="fas fa-angle-double-left"></i>',
+'last_link'      => '<i class="fas fa-angle-double-right"></i>',
+'next_link'      => '<i class="fas fa-angle-right"></i>',
+'prev_link'      => '<i class="fas fa-angle-left"></i>',
+'page_delimiter' => '&page='
         ]);
         $this->pagination->set_theme('bootstrap');
         $this->pagination->initialize($total_rows, $records_per_page, $page, 'users/view'.'?q='.$q);

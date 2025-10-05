@@ -29,16 +29,13 @@ public function login()
         $username = $this->io->post('username');
         $password = $this->io->post('password');
 
-        if ($this->auth->login($username, $password)) {
-            // Set session role
-            $_SESSION['role'] = $this->auth->get_role(); // dapat 'admin' o 'user'
+        $user = $this->auth->login($username, $password); // dapat bumalik ang user record array
 
-            // Redirect based on role
-            if ($_SESSION['role'] === 'admin') {
-                redirect('/users/view'); // full access
-            } else {
-                redirect('/users/view'); // normal users, restricted actions
-            }
+        if ($user) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role']    = $user['role']; // 'admin' o 'user'
+
+            redirect('users/view');
         } else {
             echo 'Login failed!';
         }
@@ -46,7 +43,6 @@ public function login()
 
     $this->call->view('auth/login');
 }
-
 
   
     public function logout()
