@@ -437,7 +437,7 @@ i {
                         </td>
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['email'] ?></td>
-                        <?php if($_SESSION['role'] === 'admin'): ?>
+                        <?php if(isset($_SESSION['role']) && strtolower($_SESSION['role']) === 'admin'): ?>
                         <td>
                            <a href="<?= site_url('users/update/' . $user['id']) ?>" class="btn btn-edit">
   <i class="fas fa-pen"></i> Edit

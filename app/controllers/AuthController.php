@@ -24,13 +24,26 @@ public function login()
 {
     $this->call->library('auth');
 
-    if ($this->io->method() == 'post') {
+    if ($this->io->method() === 'post') {
         $username = $this->io->post('username');
         $password = $this->io->post('password');
 
-        if ($this->auth->login($username, $password)) {
-            // Redirect both admins and users to same view page
-            redirect('/users/view');
+        // Login function returns user array on success
+        $user = $this->auth->login($username, $password);
+
+        if ($user) {
+            // Set session (for controller & view)
+            $this->session->set_userdata([
+                'user_id'  => $user['id'],
+                'username' => $user['username'],
+                'role'     => $user['role'], // 'admin' or 'user'
+                'logged_in'=> true
+            ]);
+
+            // Optional: para magamit sa plain PHP views
+            $_SESSION['role'] = $user['role'];
+
+            redirect('/users/view'); // pareho page for admin & user
         } else {
             echo 'Login failed!';
         }
@@ -38,6 +51,7 @@ public function login()
 
     $this->call->view('auth/login');
 }
+
 
   
     public function logout()
