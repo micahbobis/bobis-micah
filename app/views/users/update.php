@@ -165,38 +165,39 @@ input:focus {
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h1>Create User</h1>
+            <h1>Update User</h1>
         </div>
         <div class="card-body">
-            <form action="<?= site_url('users/store') ?>" method="POST" enctype="multipart/form-data">
-
-                <!-- Profile Upload -->
+            <form action="<?= site_url('users/update/' . $user['id']) ?>" method="POST" enctype="multipart/form-data">
+                
+                <!-- Profile Section -->
                 <div class="form-top">
-                    <img src="<?= !empty($user['image_path']) && $user['image_path'] !== 'default-avatar.png' 
-                        ? base_url() . 'public/' . html_escape($user['image_path']) 
-                        : base_url() . 'public/default-avatar.png' ?>" 
-                        alt="Profile" class="profile-preview" id="profilePreview">
+                    <img src="<?= !empty($user['image_path']) && $user['image_path'] !== 'default-avatar.png' ? base_url().'public/'.html_escape($user['image_path']) : base_url().'public/default-avatar.png' ?>" 
+                         alt="Profile" class="profile-preview" id="profilePreview">
                     <input type="file" name="profile" id="profile" accept="image/*">
                 </div>
 
                 <!-- Form Fields -->
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" name="username" id="username" placeholder="Enter username" required>
+                    <input type="text" name="username" id="username" value="<?= $user['username'] ?>" placeholder="Enter username" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Enter email" required>
+                    <input type="email" name="email" id="email" value="<?= $user['email'] ?>" placeholder="Enter email" required>
                 </div>
 
                 <!-- Actions -->
                 <div class="actions">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-plus"></i> Create
-                    </button>
-                    <a href="<?= site_url('users/view') ?>" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </a>
+                   <button type="submit" class="btn btn-primary">
+  <i class="fas fa-save"></i> Save Changes
+</button>
+
+<a href="<?= site_url('users/view') ?>" class="btn btn-secondary">
+  <i class="fas fa-times"></i> Cancel
+</a>
+
+
                 </div>
             </form>
 
