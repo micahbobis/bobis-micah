@@ -15,31 +15,37 @@ public function __construct()
 }
 
 
-   public function view()
-{
-    $page = $this->io->get('page') ?? 1;
-    $q = trim($this->io->get('q') ?? '');
+    public function view()
+    {
+        $page = 1;
+        if(isset($_GET['page']) && !empty($_GET['page'])) {
+            $page = $this->io->get('page');
+        }
 
-    $records_per_page = 5;
+        $q = '';
+        if(isset($_GET['q']) && !empty($_GET['q'])) {
+            $q = trim($this->io->get('q'));
+        }
 
-    $all = $this->UserModel->page($q, $records_per_page, $page);
-    $data['users'] = $all['records'];
-    $total_rows = $all['total_rows'];
+        $records_per_page = 5;
 
-    $this->pagination->set_options([
-        'first_link'     => '⏮ First',
-        'last_link'      => 'Last ⏭',
-        'next_link'      => 'Next →',
-        'prev_link'      => '← Prev',
-        'page_delimiter' => '&page='
-    ]);
+        $all = $this->UserModel->page($q, $records_per_page, $page);
+        $data['users'] = $all['records'];
+        $total_rows = $all['total_rows'];
 
-    $this->pagination->set_theme('bootstrap');
-    $this->pagination->initialize($total_rows, $records_per_page, $page, 'users/view?q='.$q);
-    $data['page'] = $this->pagination->paginate();
+        $this->pagination->set_options([
+            'first_link'     => '⏮ First',
+            'last_link'      => 'Last ⏭',
+            'next_link'      => 'Next →',
+            'prev_link'      => '← Prev',
+            'page_delimiter' => '&page='
+        ]);
+        $this->pagination->set_theme('bootstrap');
+        $this->pagination->initialize($total_rows, $records_per_page, $page, 'users/view'.'?q='.$q);
+        $data['page'] = $this->pagination->paginate();
 
-    $this->call->view('users/view', $data);
-}
+        $this->call->view('users/view', $data);
+    }
 
    public function create()
 {
