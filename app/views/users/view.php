@@ -38,25 +38,23 @@ $role = $_SESSION['role'] ?? null;
 *{margin:0;padding:0;box-sizing:border-box;}
 
 /* Body & Background */
-body {
+body{
     font-family: 'Montserrat', sans-serif;
-   background: url('public/images/bg.png') no-repeat center center fixed;
-
+    background: linear-gradient(rgba(223,240,210,0.25), rgba(223,240,210,0.25)),
+                url('/public/images/bg.png') no-repeat center center fixed;
     background-size: cover;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--text-dark);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--text-dark);
 }
-
-/* Optional overlay */
-body::before {
+body::before{
     content:'';
-    position: fixed;
-    inset: 0;
-    background: rgba(223,240,210,0.25);
-    z-index: -1;
+    position:fixed;
+    inset:0;
+    background:rgba(223,240,210,0.25);
+    z-index:-1;
 }
 
 /* Card container */
