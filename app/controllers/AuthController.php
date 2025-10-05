@@ -21,7 +21,7 @@ class AuthController extends Controller
     $this->call->view('auth/register');
 }
 
-    public function login()
+public function login()
 {
     $this->call->library('auth');
 
@@ -29,11 +29,10 @@ class AuthController extends Controller
         $username = $this->io->post('username');
         $password = $this->io->post('password');
 
-        $user = $this->auth->login($username, $password); // ngayon bumabalik na array
+        $user = $this->auth->login($username, $password); // ngayon bumabalik na ang user array
 
         if ($user) {
-            // redirect depende sa role
-            redirect('users/view');
+            redirect('users/view'); // redirect sa view, session na may role
         } else {
             echo 'Login failed!';
         }
