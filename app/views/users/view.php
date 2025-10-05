@@ -321,7 +321,51 @@ td:last-child {
   box-shadow: 0 0 10px rgba(63, 92, 75, 0.7);
   transform: scale(1.05);
 }
- ✨ Optional Icons (Font Awesome recommended) */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.2rem;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Edit button */
+.btn-edit {
+    background: var(--matcha-light);
+    color: var(--text-dark);
+    border-color: var(--matcha-dark);
+}
+.btn-edit:hover {
+    background: var(--matcha-dark);
+    color: var(--off-white);
+    box-shadow: 0 0 8px var(--matcha-dark);
+    transform: translateY(-2px);
+}
+
+/* Delete button */
+.btn-delete {
+    background: var(--red);
+    color: var(--off-white);
+    border-color: var(--red);
+}
+.btn-delete:hover {
+    background: #c0392b;
+    box-shadow: 0 0 8px #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Icons */
+.btn i {
+    font-size: 0.95rem;
+}
+
 i {
     margin-right: 6px;
     font-size: 1rem;
