@@ -5,12 +5,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
 if (!isset($_SESSION['user_id'])) {
     header("Location: " . site_url('auth/login'));
     exit;
 }
-
 
 $role = $_SESSION['role'] ?? null;
 ?>
@@ -24,7 +22,6 @@ $role = $_SESSION['role'] ?? null;
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="<?= base_url() ?>public/favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 
 <style>
 :root {
@@ -43,7 +40,7 @@ $role = $_SESSION['role'] ?? null;
 }
 
 /* Body */
-body{
+body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(rgba(223,240,210,0.25), rgba(223,240,210,0.25)),
                 url('/public/images/bg.png') no-repeat center center fixed;
@@ -54,7 +51,7 @@ body{
     align-items:center;
     color:var(--text-dark);
 }
-body::before{
+body::before {
     content:'';
     position:fixed;
     inset:0;
@@ -221,13 +218,14 @@ td:last-child {
     pointer-events: none;
 }
 
-/* Header actions (Search + Add button) */
+/* Header actions (Search + Add + Logout) */
 .header-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
     margin-top: 0.5rem;
+    gap: 1rem;
 }
 
 /* Search bar */
@@ -275,29 +273,6 @@ td:last-child {
     box-shadow: 0 0 10px var(--matcha-light);
 }
 
-
-
-/* Add button */
-.btn-add {
-    padding: 0.6rem 1.2rem;
-    background: var(--matcha-dark);
-    color: var(--off-white);
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 30px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    border: 1px solid var(--matcha-dark);
-}
-
-.btn-add:hover {
-    background: var(--matcha-light);
-    color: var(--text-dark);
-    box-shadow: 0 0 15px var(--matcha-light);
-}
 .search-btn i {
   color: var(--off-white);
   font-size: 1rem;
@@ -307,6 +282,8 @@ td:last-child {
 .search-btn:hover i {
   color: var(--matcha-dark);
 }
+
+/* Add button */
 .btn-add {
   padding: 0.5rem 1.2rem;
   background: var(--matcha-dark);
@@ -321,10 +298,7 @@ td:last-child {
   gap: 0.4rem;
   box-shadow: 0 0 5px rgba(63, 92, 75, 0.3);
   transition: all 0.3s ease;
-}
-
-.btn-add i {
-  font-size: 1rem;
+  border: 1px solid var(--matcha-dark);
 }
 
 .btn-add:hover {
@@ -334,55 +308,29 @@ td:last-child {
   transform: scale(1.05);
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.6rem 1.2rem;
-    border: 2px solid transparent;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.3s ease;
+/* Logout button */
+.btn-logout {
+  padding: 0.5rem 1.2rem;
+  background: var(--danger);
+  color: var(--off-white);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  box-shadow: 0 0 5px rgba(176, 65, 62, 0.3);
+  border: 1px solid var(--danger);
+  transition: all 0.3s ease;
 }
 
-.btn-edit {
-    background: var(--matcha-light);
-    color: var(--text-dark);
-    border-color: var(--matcha-dark);
+.btn-logout:hover {
+  background: #943737;
+  box-shadow: 0 0 10px rgba(176, 65, 62, 0.7);
+  transform: scale(1.05);
 }
-.btn-edit:hover {
-    background: var(--matcha-dark);
-    color: var(--off-white);
-    box-shadow: 0 0 8px var(--matcha-dark);
-    transform: translateY(-2px);
-}
-
-.btn-delete {
-    background: var(--red);
-    color: var(--text-dark);
-    border-color: var(--red);
-}
-.btn-delete:hover {
-    background: #c0392b;
-    color: var(--off-white);
-    box-shadow: 0 0 8px #c0392b;
-    transform: translateY(-2px);
-}
-
-.btn i {
-    font-size: 0.95rem;
-}
-
-/* Icons */
-
-i {
-    margin-right: 6px;
-    font-size: 1rem;
-}
-
 
 </style>
 </head>
@@ -391,24 +339,25 @@ i {
 <div class="container">
     <div class="card">
         <h1 class="main-title">ProfileVault Suite</h1>
-        <div class="card-header">
         
         <div class="header-actions">
             <form action="<?=site_url('users/view');?>" method="get" class="search-form">
                 <?php $q = isset($_GET['q']) ? $_GET['q'] : ''; ?>
                 <input class="search-input" name="q" type="text" placeholder="Search" value="<?=html_escape($q);?>">
                 <button type="submit" class="search-btn">
-                <i class="fa-solid fa-search"></i>
+                    <i class="fa-solid fa-search"></i>
                 </button>
-
-
             </form>
 
-        <a href="<?= site_url('users/create') ?>" class="btn-add">
-  <i class="fa-solid fa-user-plus"></i> &nbsp; Add Account
-</a>
-
-</div>
+            <div style="display: flex; gap: 0.8rem;">
+                <a href="<?= site_url('users/create') ?>" class="btn-add">
+                    <i class="fa-solid fa-user-plus"></i> Add Account
+                </a>
+                <a href="<?= site_url('auth/logout') ?>" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </div>
 
         <div class="table-wrapper">
             <table>
@@ -427,30 +376,22 @@ i {
                     <tr>
                         <td><?= $user['id'] ?></td>
                         <td>
-                        <img src="<?= site_url($user['image_path']) ?>" 
-                         alt="Profile" 
-                        width="60" height="60"
-                        style="border-radius:50%; object-fit:cover;">
-
-
-
+                            <img src="<?= site_url($user['image_path']) ?>" 
+                                 alt="Profile" width="60" height="60"
+                                 style="border-radius:50%; object-fit:cover;">
                         </td>
                         <td><?= $user['username'] ?></td>
                         <td><?= $user['email'] ?></td>
                         <?php if(isset($_SESSION['role']) && strtolower($_SESSION['role']) === 'admin'): ?>
                         <td>
-                           <a href="<?= site_url('users/update/' . $user['id']) ?>" class="btn btn-edit">
-  <i class="fas fa-pen"></i> Edit
-</a>
-
-<a href="<?= site_url('users/delete/' . $user['id']) ?>" 
-   class="btn btn-delete" 
-   onclick="return confirm('Are you sure you want to delete this user?');">
-  <i class="fas fa-trash"></i> Delete
-</a>
-
-
-                        
+                            <a href="<?= site_url('users/update/' . $user['id']) ?>" class="btn btn-edit">
+                                <i class="fas fa-pen"></i> Edit
+                            </a>
+                            <a href="<?= site_url('users/delete/' . $user['id']) ?>" 
+                               class="btn btn-delete" 
+                               onclick="return confirm('Are you sure you want to delete this user?');">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
                         </td>
                         <?php endif; ?>
                     </tr>
